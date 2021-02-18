@@ -8,7 +8,7 @@ Alias for Python, Git, apt, copying the pwd, and searching the history.
 4 speces for an indent, display tab as 4 spaces, use provided "usual" keybindings, and enable all syntax definitions.
 
 # Vim
-Syntax, UTF-8, 4 speces for an indent, display tab as 4 spaces, status bar, and automatic add the closing tag for HTML/XML.
+Syntax, UTF-8, 4 speces for an indent, display tab as 4 spaces, vim-airline, and automatic add the closing tag for HTML/XML.
 
 # Git
 Mail address, name, colored UI, and display non-alphabet characters.
