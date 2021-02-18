@@ -12,5 +12,3 @@ for f in .??*; do
     # Symlink を貼る
     ln -snfv ${PWD}/"$f" ~/
 done
-
-source ~/.bashrc
