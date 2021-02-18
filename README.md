@@ -1,14 +1,17 @@
 # Dot Files
-My Dot Files for Bash on Ubuntu.  Key features follows.
+My Dot Files for Bash on Ubuntu.  Key features follow.
 
 # Bash
-Alias for Python, Git, apt, copying the pwd, searching the history.
+Alias for Python, Git, apt, copying the pwd, and searching the history.
 
 # Nano
-4 speces for indent, display tab as 4 spaces, use provided "usual" keybindings, enable all syntax definitions.
+4 speces for an indent, display tab as 4 spaces, use provided "usual" keybindings, and enable all syntax definitions.
 
 # Vim
-Syntax, UTF-8, 4 speces for indent, display tab as 4 spaces, status bar, automatic add closing tag for HTML/XML.
+Syntax, UTF-8, 4 speces for an indent, display tab as 4 spaces, status bar, and automatic add the closing tag for HTML/XML.
+
+# Git
+Mail address, name, colored UI, and display non-alphabet characters.
 
 # Installation
 You can install by running the following commands.
