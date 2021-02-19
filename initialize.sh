@@ -41,7 +41,7 @@ elif [ $# -eq 0 ]; then
     git config --global user.name ${name}
     git config --global color.ui true
     git config --global core.quotepath false
-    echo "Installation Complete."
+    echo "Initialization Complete."
 else
     echo "Error: The number of options must be 0 or 1."
 fi
