@@ -2,7 +2,7 @@
 set -e
 
 if [ $# -eq 1 ]; then
-    elif [ $1 = "caslcomet" ]; then
+    if [ $1 = "caslcomet" ]; then
         cd ~
         curl -fLO https://www-hasegawa.ist.osaka-u.ac.jp/~ykoizumi/lecture/fco/files/casl2-2017-11-16.zip
         unzip casl2-2017-11-16.zip
