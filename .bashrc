@@ -65,12 +65,10 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias copy='xsel -ip && xsel -op | xsel -ib'
 alias py='python'
 alias ipy='ipython'
 alias applyrc='source ~/.bashrc'
 alias editrc='nano -w ~/.bashrc'
-alias g='git'
 alias ga='git add'
 alias gd='git diff'
 alias gs='git status'
@@ -89,6 +87,7 @@ alias aptu='sudo apt update'
 alias aptdu='sudo apt dist-upgrade'
 alias pwdc='pwd | tr -d "\n" | xsel --clipboard --input'
 alias hist='history | peco'
+alias copy='xsel -ip && xsel -op | xsel -ib'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
