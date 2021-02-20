@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-cd buildbrain
+cd ~/Documents/buildbrain
 mkdir -p bin
 make udefconfig-sh1 ubuild nkbin-maker nk.bin
 mv nk.bin bin/edsa1exe.bin

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-cd buildbrain
+cd ~/Documents/buildbrain
 mkdir -p bin
 make ldefconfig lbuild
 mv linux-brain/arch/arm/boot/zImage bin/zImage
