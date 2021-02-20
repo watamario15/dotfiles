@@ -2,7 +2,11 @@
 My dot files for Bash on Ubuntu.  Key features follow.
 
 # Bash
-Alias for Python, Git, apt, and various features.
+Aliases for Python, Git, apt, and various features.
+- Edit/Apply the `~/.bashrc` by `editrc`/`applyrc`
+- Copy the current directory to the clipboard by `pwdc`
+- Copy from the stdin to the clipboard by `copy`
+- Search the command history by `hist`
 
 # Nano
 4 speces for an indent, display tab as 4 spaces, use provided "usual" keybindings, and enable all syntax definitions.
@@ -20,4 +24,4 @@ cd dotfiles
 ./install.sh
 ```
 
-Executing `./initialze.sh` sets up the Git and installs some essential packages.  Also, you can install CASLII/COMETII by `./initialize.sh caslcomet` and development packages for SHARP Brain by `./initialize.sh brain`.
+Executing `./initialze.sh` sets up the Git and installs some essential packages.  Also, you can install the CASLII/COMETII simulator (Osaka University) by `./initialize.sh caslcomet` and packages for SHARP Brain developments by `./initialize.sh brain`.

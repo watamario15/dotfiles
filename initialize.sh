@@ -4,7 +4,7 @@ set -e
 if [ $# -eq 1 ]; then
     if [ $1 = "caslcomet" ]; then
         if (type "casl2" > /dev/null 2>&1) && (type "comet2" > /dev/null 2>&1); then
-            echo "The CASLII/COMETII simulator is already installed.  Nothing has been changed."
+            echo "The CASLII/COMETII simulator is already installed, and nothing has been changed."
         else
             echo "Installing the CASLII/COMETII simulator (Osaka University)..."
             cd ~
@@ -15,7 +15,7 @@ if [ $# -eq 1 ]; then
             sudo mv casl2 comet2 /usr/local/bin/
             cd ..
             rm -rf casl2-2017-11-16.zip casl2-2017-11-16
-            echo "Installation Complete."
+            echo "The Installation Completed."
         fi
     elif [ $1 = "brain" ]; then
         if !(grep -Fq "deb [trusted=yes] https://max.kellermann.name/debian cegcc_buster-default main" "/etc/apt/sources.list"); then
@@ -23,10 +23,10 @@ if [ $# -eq 1 ]; then
             sudo bash -c 'echo >> /etc/apt/sources.list'
             sudo bash -c 'echo "deb [trusted=yes] https://max.kellermann.name/debian cegcc_buster-default main" >> /etc/apt/sources.list'
         fi
-        echo "Installing packages for the SHARP Brain development..."
+        echo "Installing packages for SHARP Brain developments..."
         sudo apt update
         sudo apt install gcc-arm-mingw32ce gcc-arm-linux-gnueabi bison flex libncurses5-dev libssl-dev debootstrap qemu-user-static
-        echo "Installation Complete."
+        echo "The Installation Completed."
     else
         echo "No such option: $1"
     fi
@@ -41,7 +41,7 @@ elif [ $# -eq 0 ]; then
     git config --global user.name ${name}
     git config --global color.ui true
     git config --global core.quotepath false
-    echo "Initialization Complete."
+    echo "The Initialization Completed."
 else
     echo "Error: The number of options must be 0 or 1."
 fi
