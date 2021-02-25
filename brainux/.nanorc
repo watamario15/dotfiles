@@ -160,7 +160,7 @@ set softwrap
 # set speller "aspell -x -c"
 
 ## Allow nano to be suspended (with ^Z by default).
-set suspendable
+# set suspendable  # Not supported on Nano on Brainux.
 ## (The old form of this option, 'set suspend', is deprecated.)
 
 ## Use this tab size instead of the default; it must be greater than 0.
@@ -198,14 +198,14 @@ set tabstospaces
 
 ## Paint the interface elements of nano.  These are examples;
 ## by default there are no colors, except for errorcolor.
-set titlecolor bold,lightwhite,blue
-set statuscolor bold,lightwhite,green
-set errorcolor bold,lightwhite,red
-set selectedcolor lightwhite,magenta
-set stripecolor ,yellow
-set numbercolor cyan
-set keycolor cyan
-set functioncolor green
+# set titlecolor bold,lightwhite,blue
+# set statuscolor bold,lightwhite,green
+# set errorcolor bold,lightwhite,red
+# set selectedcolor lightwhite,magenta
+# set stripecolor ,yellow
+# set numbercolor cyan
+# set keycolor cyan
+# set functioncolor green
 ## In root's .nanorc you might want to use:
 # set titlecolor bold,lightwhite,magenta
 # set statuscolor bold,lightwhite,magenta
@@ -230,7 +230,7 @@ include "/usr/share/nano/*.nanorc"
 
 ## In /usr/share/nano/extra/ you can find some syntaxes that are
 ## specific for certain distros or for less common languages.
-include "/usr/share/nano/extra/*.nanorc"
+# include "/usr/share/nano/extra/*.nanorc"
 
 ## If <Tab> should always produce four spaces when editing a Python file,
 ## independent of the settings of 'tabsize' and 'tabstospaces':
@@ -270,7 +270,7 @@ bind M-X flipnewbuffer all
 bind ^X cut all
 bind ^C copy main
 bind ^V paste all
-bind ^P location main
+# bind ^P location main
 bind ^A mark main
 unbind ^K main
 unbind ^U all
