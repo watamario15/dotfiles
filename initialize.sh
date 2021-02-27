@@ -34,6 +34,9 @@ elif [ $# -eq 0 ]; then
     echo "Installing essential packages..."
     sudo apt update
     sudo apt install git curl zip unzip gawk vim build-essential exfat-fuse exfat-utils xsel peco
+    sudo curl -fL https://raw.githubusercontent.com/puhitaku/rcs/master/scripts/fontify -o /usr/local/bin/fontify
+    sudo cp tools/CeGCC /usr/local/bin/
+    sudo chmod +x /usr/local/bin/fontify /usr/local/bin/CeGCC
     echo "Setting up the Git..."
     echo -n "Your email address: "; read email
     git config --global user.email ${email}
