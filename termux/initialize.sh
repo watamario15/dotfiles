@@ -12,7 +12,7 @@ if [ $# -eq 1 ]; then
             unzip casl2-2017-11-16.zip
             cd casl2-2017-11-16
             chmod +x casl2 comet2
-            mv casl2 comet2 /data/data/com.termux/files/usr/local/bin/
+            mv casl2 comet2 /data/data/com.termux/files/usr/bin/
             cd ..
             rm -rf casl2-2017-11-16.zip casl2-2017-11-16
             echo "The Installation Completed."
@@ -24,13 +24,9 @@ elif [ $# -eq 0 ]; then
     echo "Installing essential packages..."
     apt update
     apt install curl wget zip unzip gawk vim build-essential
-    curl -fL https://raw.githubusercontent.com/puhitaku/rcs/master/scripts/fontify -o /data/data/com.termux/files/usr/local/bin/fontify
-    chmod +x /data/data/com.termux/files/usr/local/bin/fontify
+    curl -fL https://raw.githubusercontent.com/puhitaku/rcs/master/scripts/fontify -o /data/data/com.termux/files/usr/bin/fontify
+    chmod +x /data/data/com.termux/files/usr/bin/fontify
     echo "Setting up the Git..."
-    echo -n "Your email address: "; read email
-    git config --global user.email ${email}
-    echo -n "Your name: "; read name
-    git config --global user.name ${name}
     git config --global color.ui true
     git config --global core.quotepath false
     echo "The Initialization Completed."
