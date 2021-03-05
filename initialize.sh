@@ -30,28 +30,12 @@ if [ $# -eq 1 ]; then
         sudo apt install gcc-arm-mingw32ce gcc-arm-linux-gnueabi bison flex libncurses5-dev libssl-dev debootstrap qemu-user-static
         echo "The Installation Completed."
     elif [ $1 = "xtbook" ]; then
-        sudo apt install libmecab-dev kakasi libkakasi2-dev libxml2-dev liblzma-dev
-
-        cd
-        wget "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE" -O mecab-0.996.tar.gz
-        tar zxvf mecab-0.996.tar.gz
-        cd mecab-0.996
-        ./configure --with-charset=utf8 --enable-utf8-only
-        make
-        sudo make install
-
-        cd
-        wget "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM" -O mecab-ipadic-2.7.0-20070801.tar.gz
-        tar zxvf mecab-ipadic-2.7.0-20070801.tar.gz
-        cd mecab-ipadic-2.7.0-20070801
-        ./configure --with-charset=utf8
-        make
-        sudo make install
+        sudo apt install mecab libmecab-dev mecab-ipadic-utf8 kakasi libkakasi2-dev libxml2-dev liblzma-dev
 
         cd
         git clone --depth 1 "https://github.com/neologd/mecab-ipadic-neologd.git"
         cd mecab-ipadic-neologd
-        ./bin/install-mecab-ipadic-neologd -n -a
+        echo "yes" | ./bin/install-mecab-ipadic-neologd -n -a
         sudo nano -w $(mecab-config --sysconfdir)/mecabrc # 辞書ファイルを指定している箇所を編集し、標準で使用したい辞書を指定
 
         cd
