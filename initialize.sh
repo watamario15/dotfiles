@@ -29,7 +29,7 @@ if [ $# -eq 1 ]; then
         sudo apt update
         sudo apt install gcc-arm-mingw32ce gcc-arm-linux-gnueabi bison flex libncurses5-dev libssl-dev debootstrap qemu-user-static
         echo "The Installation Completed."
-    elif [ $1 = "xtbook"]; then
+    elif [ $1 = "xtbook" ]; then
         sudo apt install kakasi libkakasi2-dev libxml2-dev liblzma-dev
 
         cd
