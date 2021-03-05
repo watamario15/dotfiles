@@ -30,7 +30,7 @@ if [ $# -eq 1 ]; then
         sudo apt install gcc-arm-mingw32ce gcc-arm-linux-gnueabi bison flex libncurses5-dev libssl-dev debootstrap qemu-user-static
         echo "The Installation Completed."
     elif [ $1 = "xtbook" ]; then
-        sudo apt install kakasi libkakasi2-dev libxml2-dev liblzma-dev
+        sudo apt install libmecab-dev kakasi libkakasi2-dev libxml2-dev liblzma-dev
 
         cd
         wget "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE" -O mecab-0.996.tar.gz
