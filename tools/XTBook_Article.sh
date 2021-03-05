@@ -20,3 +20,4 @@ ${MKXTBDIR}/YomiGenesis-bin < BaseNames.csv > Yomi.txt 2> /dev/null
 ${MKXTBDIR}/MkXTBIndexDB-bin -o Search Yomi.txt
 ${MKXTBDIR}/MkRax-bin -o Articles.db.rax  < Articles.db
 rm -f Articles.db Yomi.txt
+cp ~/dotfiles/tools/info-plists/$1.plist info.plist
