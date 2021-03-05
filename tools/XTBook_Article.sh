@@ -5,8 +5,8 @@ set -e
 if(test $# -ne 2) ; then
     echo "Error: Invalid Parameter."
     echo "Usage: [WikiName] [Date]"
-    echo "Example: ./XTBook_Article jawiki 20210301"
-    echo "         ./XTBook_Article jaunwiki 20210301"
+    echo "Example: ./XTBook_Article jawiki 20210401"
+    echo "         ./XTBook_Article jaunwiki 20210401"
     exit
 fi
 

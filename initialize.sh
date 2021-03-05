@@ -38,6 +38,15 @@ if [ $# -eq 1 ]; then
         echo "yes" | ./bin/install-mecab-ipadic-neologd -n -a
         sudo nano -w $(mecab-config --sysconfdir)/mecabrc # 辞書ファイルを指定している箇所を編集し、標準で使用したい辞書を指定
 
+        cd /usr/src
+        sudo wget https://ftp.gnu.org/gnu/libiconv/libiconv-1.14.tar.gz
+        sudo tar zxvf libiconv-1.14.tar.gz
+        cd libiconv-1.14
+        sudo nano srclib/stdio.in.h # "_GL_WARN_ON_USE (gets…" をコメントアウトする。
+        sudo ./configure
+        make
+        sudo make install
+
         cd
         wget "https://github.com/yvt/xtbook/releases/download/v0.2.6/MkXTBWikiplexus-R3.tar.gz"
         tar zxvf MkXTBWikiplexus-R3.tar.gz
