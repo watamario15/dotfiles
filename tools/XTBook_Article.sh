@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
+
 DICTDIR=~/Documents/Dictionaries
 MKXTBDIR=~/MkXTBWikiplexus/build.unix
+
 set -e
 if(test $# -ne 2) ; then
     echo "Error: Invalid Parameter."

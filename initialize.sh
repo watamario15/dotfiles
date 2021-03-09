@@ -17,6 +17,7 @@ if [ $# -eq 1 ]; then
             rm -rf casl2-2017-11-16.zip casl2-2017-11-16
             echo "The Installation Completed."
         fi
+
     elif [ $1 = "brain" ]; then
         if !(grep -Fq "deb [trusted=yes] https://max.kellermann.name/debian cegcc_buster-default main" "/etc/apt/sources.list"); then
             echo "Registering the repository of CeGCC..."
@@ -29,6 +30,7 @@ if [ $# -eq 1 ]; then
         sudo apt update
         sudo apt install gcc-arm-mingw32ce gcc-arm-linux-gnueabi bison flex libncurses5-dev libssl-dev debootstrap qemu-user-static
         echo "The Installation Completed."
+
     elif [ $1 = "xtbook" ]; then
         sudo apt install mecab libmecab-dev mecab-ipadic-utf8 kakasi libkakasi2-dev libxml2-dev liblzma-dev
 
@@ -44,8 +46,10 @@ if [ $# -eq 1 ]; then
         cd libiconv-1.14
         sudo nano srclib/stdio.in.h # "_GL_WARN_ON_USE (gets…" をコメントアウトする。
         sudo ./configure
-        make
+        sudo make
         sudo make install
+        sudo bash -c 'echo "/usr/local/lib" >> /etc/ld.so.conf'
+        sudo ldconfig
 
         cd
         wget "https://github.com/yvt/xtbook/releases/download/v0.2.6/MkXTBWikiplexus-R3.tar.gz"
@@ -53,9 +57,11 @@ if [ $# -eq 1 ]; then
         cd MkXTBWikiplexus/build.unix
         sudo nano -w ../MkImageComplex/main.cpp # MkImageComplex フォルダの main.cpp の gets(buf) を scanf("%s",buf)!=EOF に変える。
         make
+
     else
         echo "No such option: $1"
     fi
+
 elif [ $# -eq 0 ]; then
     echo "Installing essential packages..."
     sudo apt update
@@ -70,6 +76,7 @@ elif [ $# -eq 0 ]; then
     git config --global color.ui true
     git config --global core.quotepath false
     echo "The Initialization Completed."
+
 else
     echo "Error: The number of options must be 0 or 1."
 fi
