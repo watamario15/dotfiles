@@ -4,8 +4,7 @@
 
 set -e
 echo "Enter the SD path: "; read sd
-hash -r
-sudo cp $(type casl2 | gawk '{print $3}') $(type comet2 | gawk '{print $3}') $(type fontify | gawk '{print $3}') ${sd}/usr/local/bin/
+sudo cp $(which casl2) $(which comet2) $(which fontify) ${sd}/usr/local/bin/
 sudo cp .bashrc .nanorc .vimrc .fbtermrc .uim swap.sh usbg.sh ${sd}/root
 sudo chroot $sd
 
