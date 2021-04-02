@@ -65,7 +65,8 @@ elif [ $# -eq 0 ]; then
     sudo apt update
     sudo apt install curl wget zip unzip gawk vim build-essential exfat-fuse exfat-utils xsel peco
     sudo curl -fL https://raw.githubusercontent.com/puhitaku/rcs/master/scripts/fontify -o /usr/local/bin/fontify
-    sudo chmod +x /usr/local/bin/fontify
+    sudo curl -fL https://gist.github.com/qnighy/e88e6d100bee26038068665614d8112f/raw/2bd8c4f20dc727a083cab56216944f20b4a9a17a/git-findbig -o /usr/local/bin/git-findbig
+    sudo chmod +x /usr/local/bin/fontify /usr/local/bin/git-findbig
     echo "Setting up the Git..."
     echo -n "Your email address: "; read email
     git config --global user.email ${email}
