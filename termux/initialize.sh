@@ -23,7 +23,7 @@ if [ $# -eq 1 ]; then
 elif [ $# -eq 0 ]; then
     echo "Installing essential packages..."
     apt update
-    apt install curl wget zip unzip gawk vim build-essential
+    apt install git-lfs curl wget zip unzip gawk vim build-essential
     curl -fL https://raw.githubusercontent.com/puhitaku/rcs/master/scripts/fontify -o /data/data/com.termux/files/usr/bin/fontify
     chmod +x /data/data/com.termux/files/usr/bin/fontify
     echo "Setting up the Git..."

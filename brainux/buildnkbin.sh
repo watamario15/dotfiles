@@ -14,4 +14,5 @@ make udefconfig-sh5 ubuild nkbin-maker nk.bin
 mv nk.bin bin/edsh5exe.bin
 make udefconfig-sh6 ubuild nkbin-maker nk.bin
 mv nk.bin bin/edsh6exe.bin
-cp bin/edsh6exe.bin bin/edsh7exe.bin
+make udefconfig-sh7 ubuild nkbin-maker nk.bin
+mv nk.bin bin/edsh7exe.bin

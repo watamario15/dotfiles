@@ -11,4 +11,4 @@ sudo chmod 0600 /swapfile
 sudo chroot $sd
 
 # Manually run:
-# apt install zip unzip gawk exfat-fuse exfat-utils xsel peco
+# apt install git-lfs zip unzip gawk exfat-fuse exfat-utils xsel peco
