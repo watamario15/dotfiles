@@ -27,7 +27,7 @@ Aliases for Python, Git, apt, and various features including:
 You can install by executing the following commands:
 
 ```sh
-cd ~
+cd
 git clone https://github.com/watamario15/dotfiles.git
 cd dotfiles
 ./install.sh
@@ -44,6 +44,6 @@ Most of the installation process and features are the same; just use files in th
 However, note that `initialize.sh` for the Brainux should be run on a PC that has already mounted the Brainux partition and you must do some steps written in the script manually before/after running.
 
 The target specific files include:
-- `swap.sh` (Brainux) sets up a swap with given size (MB). The default is 1024MB.
+- `swap.sh` (Brainux) sets up a swap with a given size (MB). The default is 1024 MB.
 - `usbg.sh` (Brainux) sets up the USB Gadget.
-- `buildkernel.sh` and `buildnkbin.sh` are used to build the Brainux.
+- `buildkernel.sh` and `buildnkbin.sh` are for building Brainux.

@@ -21,8 +21,8 @@ if [ $# -eq 1 ]; then
     elif [ $1 = "brain" ]; then
         if !(grep -Fq "deb [trusted=yes] https://max.kellermann.name/debian cegcc_buster-default main" "/etc/apt/sources.list"); then
             echo "Registering the repository of CeGCC..."
-            sudo bash -c 'echo >> /etc/apt/sources.list'
-            sudo bash -c 'echo "deb [trusted=yes] https://max.kellermann.name/debian cegcc_buster-default main" >> /etc/apt/sources.list'
+            sudo sh -c 'echo >> /etc/apt/sources.list'
+            sudo sh -c 'echo "deb [trusted=yes] https://max.kellermann.name/debian cegcc_buster-default main" >> /etc/apt/sources.list'
         fi
         sudo cp tools/CeGCC /usr/local/bin/
         sudo chmod +x /usr/local/bin/CeGCC
@@ -47,7 +47,7 @@ if [ $# -eq 1 ]; then
         sudo ./configure
         sudo make
         sudo make install
-        sudo bash -c 'echo "/usr/local/lib" >> /etc/ld.so.conf'
+        sudo sh -c 'echo "/usr/local/lib" >> /etc/ld.so.conf'
         sudo ldconfig
 
         cd
