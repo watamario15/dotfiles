@@ -2,6 +2,7 @@
 
 DICTDIR=~/Documents/Dictionaries
 MKXTBDIR=~/MkXTBWikiplexus/build.unix
+PLIST=~/dotfiles/tools/info-plists
 
 set -e
 if(test $# -ne 2) ; then
@@ -21,5 +22,5 @@ echo "Running YomiGenesis..."
 ${MKXTBDIR}/YomiGenesis-bin < BaseNames.csv > Yomi.txt 2> /dev/null
 ${MKXTBDIR}/MkXTBIndexDB-bin -o Search Yomi.txt
 ${MKXTBDIR}/MkRax-bin -o Articles.db.rax  < Articles.db
-rm -f Articles.db Yomi.txt
-cp ~/dotfiles/tools/info-plists/$1.plist info.plist
+rm -f Articles.db Yomi.txt BaseNames.csv Titles.csv
+cp ${PLIST}/$1.plist info.plist

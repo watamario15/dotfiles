@@ -32,28 +32,33 @@ if [ $# -eq 1 ]; then
         echo "The Installation Completed."
 
     elif [ $1 = "xtbook" ]; then
+        echo "Installing packages..."
         sudo apt install -y mecab libmecab-dev mecab-ipadic-utf8 kakasi libkakasi2-dev libxml2-dev liblzma-dev
 
+        echo "Setting up mecab-ipadic-neologd..."
         cd
         git clone --depth 1 "https://github.com/neologd/mecab-ipadic-neologd.git"
         cd mecab-ipadic-neologd
         echo "yes" | ./bin/install-mecab-ipadic-neologd -n -a
-        sudo nano -w $(mecab-config --sysconfdir)/mecabrc # 辞書ファイルを指定している箇所を編集し、標準で使用したい辞書を指定
+        sudo sed -i -e "s%^dicdir.*%dicdir = `mecab-config --dicdir`/mecab-ipadic-neologd%" `mecab-config --sysconfdir`/mecabrc
 
+        echo "Setting up libiconv..."
         cd /usr/src
         sudo wget https://ftp.gnu.org/gnu/libiconv/libiconv-1.14.tar.gz -O - | sudo tar zxvf -
         cd libiconv-1.14
-        sudo nano srclib/stdio.in.h # "_GL_WARN_ON_USE (gets…" をコメントアウトする。
+        sudo sed -i -e 's%_GL_WARN_ON_USE (gets%//_GL_WARN_ON_USE (gets%' srclib/stdio.in.h
         sudo ./configure
         sudo make
         sudo make install
         sudo sh -c 'echo "/usr/local/lib" >> /etc/ld.so.conf'
         sudo ldconfig
 
+        echo "Setting up MkXTBWikiplexus..."
         cd
+        sudo rm -rf /usr/src/libiconv-1.14
         wget https://github.com/yvt/xtbook/releases/download/v0.2.6/MkXTBWikiplexus-R3.tar.gz -O - | tar zxvf -
         cd MkXTBWikiplexus/build.unix
-        sudo nano -w ../MkImageComplex/main.cpp # MkImageComplex フォルダの main.cpp の gets(buf) を scanf("%s",buf)!=EOF に変える。
+        sudo sed -i -e 's%gets(buf)%scanf("%s",buf)!=EOF%' MkXTBWikiplexus/MkImageComplex/main.cpp
         make
 
     else
@@ -65,9 +70,8 @@ elif [ $# -eq 0 ]; then
     sudo apt update
     sudo apt install -y git-lfs curl wget zip unzip gawk vim build-essential exfat-fuse exfat-utils xsel peco
     sudo curl -fL https://raw.githubusercontent.com/puhitaku/rcs/master/scripts/fontify -o /usr/local/bin/fontify
-    sudo curl -fL https://gist.github.com/qnighy/e88e6d100bee26038068665614d8112f/raw/2bd8c4f20dc727a083cab56216944f20b4a9a17a/git-findbig -o /usr/local/bin/git-findbig
-    sudo chmod +x /usr/local/bin/fontify /usr/local/bin/git-findbig
-    echo "Setting up the Git..."
+    sudo chmod +x /usr/local/bin/fontify
+    echo "Setting up Git..."
     echo -n "Your email address: "; read email
     git config --global user.email ${email}
     echo -n "Your name: "; read name
