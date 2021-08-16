@@ -35,13 +35,6 @@ if [ $# -eq 1 ]; then
         echo "Installing packages..."
         sudo apt install -y mecab libmecab-dev mecab-ipadic-utf8 kakasi libkakasi2-dev libxml2-dev liblzma-dev
 
-        echo "Setting up mecab-ipadic-neologd..."
-        cd
-        git clone --depth 1 "https://github.com/neologd/mecab-ipadic-neologd.git"
-        cd mecab-ipadic-neologd
-        echo "yes" | ./bin/install-mecab-ipadic-neologd -n -a
-        sudo sed -i -e "s%^dicdir.*%dicdir = `mecab-config --dicdir`/mecab-ipadic-neologd%" `mecab-config --sysconfdir`/mecabrc
-
         echo "Setting up libiconv..."
         cd /usr/src
         sudo wget https://ftp.gnu.org/gnu/libiconv/libiconv-1.14.tar.gz -O - | sudo tar zxvf -
