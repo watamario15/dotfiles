@@ -50,8 +50,8 @@ if [ $# -eq 1 ]; then
         cd
         sudo rm -rf /usr/src/libiconv-1.14
         wget https://github.com/yvt/xtbook/releases/download/v0.2.6/MkXTBWikiplexus-R3.tar.gz -O - | tar zxvf -
-        cd MkXTBWikiplexus/build.unix
         sudo sed -i -e 's/gets(buf)/scanf("%s",buf)!=EOF/' MkXTBWikiplexus/MkImageComplex/main.cpp
+        cd MkXTBWikiplexus/build.unix
         make
 
     else
