@@ -160,8 +160,8 @@ set softwrap
 # set speller "aspell -x -c"
 
 ## Allow nano to be suspended (with ^Z by default).
-set suspendable
 ## (The old form of this option, 'set suspend', is deprecated.)
+set suspend
 
 ## Use this tab size instead of the default; it must be greater than 0.
 set tabsize 4
@@ -198,10 +198,10 @@ set tabstospaces
 
 ## Paint the interface elements of nano.  These are examples;
 ## by default there are no colors, except for errorcolor.
-set titlecolor bold,lightwhite,blue
-set statuscolor bold,lightwhite,green
-set errorcolor bold,lightwhite,red
-set selectedcolor lightwhite,magenta
+set titlecolor brightwhite,blue
+set statuscolor brightwhite,green
+set errorcolor brightwhite,red
+set selectedcolor brightwhite,magenta
 set stripecolor ,yellow
 set numbercolor cyan
 set keycolor cyan
@@ -227,10 +227,6 @@ include "/usr/share/nano/*.nanorc"
 # include "/usr/share/nano/html.nanorc"
 # include "/usr/share/nano/python.nanorc"
 # include "/usr/share/nano/sh.nanorc"
-
-## In /usr/share/nano/extra/ you can find some syntaxes that are
-## specific for certain distros or for less common languages.
-include "/usr/share/nano/extra/*.nanorc"
 
 ## If <Tab> should always produce four spaces when editing a Python file,
 ## independent of the settings of 'tabsize' and 'tabstospaces':
@@ -270,7 +266,7 @@ bind M-X flipnewbuffer all
 bind ^X cut all
 bind ^C copy main
 bind ^V paste all
-bind ^P location main
+bind ^P curpos main
 bind ^A mark main
 unbind ^K main
 unbind ^U all

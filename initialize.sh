@@ -61,7 +61,7 @@ if [ $# -eq 1 ]; then
 elif [ $# -eq 0 ]; then
     echo "Installing essential packages..."
     sudo apt update
-    sudo apt install -y git-lfs curl wget zip unzip gawk vim build-essential exfat-fuse exfat-utils xsel peco
+    sudo apt install -y git-lfs curl wget zip unzip gawk vim build-essential mingw-w64 exfat-fuse exfat-utils xsel peco
     sudo curl -fL https://raw.githubusercontent.com/puhitaku/rcs/master/scripts/fontify -o /usr/local/bin/fontify
     sudo chmod +x /usr/local/bin/fontify
     echo "Setting up Git..."

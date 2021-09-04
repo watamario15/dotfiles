@@ -24,8 +24,7 @@ Aliases for Python, Git, apt, and various features including:
 
 # Installation
 ## Ubuntu
-You can install by executing the following commands:
-
+You can install by invoking the following commands:
 ```sh
 cd
 git clone https://github.com/watamario15/dotfiles.git
