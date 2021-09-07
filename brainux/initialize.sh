@@ -9,7 +9,7 @@ sudo dd if=/dev/zero of=${sd}/swapfile bs=1M count=4096
 sudo chmod 0600 ${sd}/swapfile
 sudo mkswap ${sd}/swapfile
 sudo chroot $sd << EOF
-apt install -y zip unzip xsel peco
+apt install -y gdb zip unzip xsel peco
 echo "/swapfile  none   swap    defaults   0 0" >> /etc/fstab
 sed -ie "s%PATH=\"/usr/local/bin:/usr/bin:/bin:/usr/games:/usr/local/games\"%PATH=\"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games\"%" /etc/profile
 EOF
