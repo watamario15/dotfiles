@@ -16,7 +16,7 @@ Aliases for Python, Git, apt, and various features including:
 
 # Vim
 - Syntax highlighting
-- Using UTF-8 encoding
+- Use UTF-8 encoding
 - 4 speces for an indent
 - Display tab as 4 spaces
 - Vim-airline
