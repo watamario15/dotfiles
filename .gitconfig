@@ -1,0 +1,27 @@
+[color]
+	ui = true
+[core]
+	quotepath = false
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[diff]
+    tool = WinMerge
+[difftool]
+    prompt = false
+[difftool "WinMerge"]
+    cmd = 'WinMergeU.exe' -e -r -u -x -wl -wr -dl "a/$MERGED" -dr "b/$MERGED" "`wslpath -w $LOCAL`" "`wslpath -w $REMOTE`"
+    trustExitCode = false
+[merge]
+    tool = WinMerge
+[mergetool]
+    prompt = false
+    keepBackup = false
+[mergetool "WinMerge"]
+    cmd = 'WinMergeU.exe' -e -u -fm -wl -wr -dl "Mine File" -dm "Base File" -dr "Theirs File" "$LOCAL" "$BASE" "$REMOTE" -o "$MERGED"
+    trustExitCode = false
+[mergetool "Unity"]
+    cmd = '/mnt/c/Program Files/Unity/Hub/Editor/2020.3.19f1/Editor/Data/Tools/UnityYAMLMerge.exe' merge -p "$BASE" "$REMOTE" "$LOCAL" "$MERGED"
+    trustExitCode = false
