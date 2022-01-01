@@ -1,5 +1,5 @@
 # Dot Files
-My dot files for Ubuntu, [Termux](https://termux.com/), and [Brainux](https://brainux.org/).  Key features follow.
+My dot files for [Ubuntu](https://ubuntu.com/), [Termux](https://termux.com/), and [Brainux](https://brainux.org/).  Key features follow.
 
 # Bash
 Aliases for Python, Git, apt, and various features including:

@@ -93,6 +93,12 @@ alias applyrc='source ~/.bashrc'
 alias pwdc='pwd | tr -d "\n" | xsel -ib'
 alias copy='xsel -ip && xsel -op | xsel -ib'
 alias hist='history | peco'
+alias wceg++='arm-mingw32ce-g++ -Wall -O2 -std=gnu++2a -march=armv5tej -mcpu=arm926ej-s -static -s -lcommctrl -lcommdlg -lm'
+alias wcegcc='arm-mingw32ce-gcc -Wall -O2 -std=gnu2x -march=armv5tej -mcpu=arm926ej-s -static -s -lcommctrl -lcommdlg -lm'
+alias w32g++='i686-w64-mingw32-g++ -Wall -O2 -std=gnu++2a -static -s -lm'
+alias w32gcc='i686-w64-mingw32-gcc -Wall -O2 -std=gnu2x -static -s -lm'
+alias w64g++='x86_64-w64-mingw32-g++ -Wall -O2 -std=gnu++2a -static -s -lm'
+alias w64gcc='x86_64-w64-mingw32-gcc -Wall -O2 -std=gnu2x -static -s -lm'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
