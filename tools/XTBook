@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
+set -e
 
 DICTDIR=~/Documents/Dictionaries
 MKXTBDIR=~/MkXTBWikiplexus/build.unix
 PLIST=~/dotfiles/tools/info-plists
 
-set -e
-if(test $# -ne 2) ; then
+if(test $# -ne 2); then
     echo "Error: Invalid Parameter."
-    echo "Usage: [WikiName] [Date]"
-    echo "Example: ./XTBook_Article jawiki 20210401"
-    echo "         ./XTBook_Article jaunwiki 20210401"
+    echo "Usage: XTBook [WikiName] [Date]"
+    echo "Example: XTBook jawiki 20220101"
+    echo "         XTBook jaunwiki 20220101"
     echo
     echo "Your dump file must have this naming style: [WikiName]-[Date]-pages-articles.xml"
     echo "Example: jawiki-20220101-pages-articles.xml"
