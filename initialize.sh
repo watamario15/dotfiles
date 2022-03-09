@@ -82,7 +82,7 @@ elif [ $# -eq 0 ]; then
     while true; do
         echo -n "Your email address: "; read email
         echo -n "Your name: "; read name
-        echo -n "Correct (email: ${dict}, name: ${name}) [Y/n]? "; read key
+        echo -n "Correct (email: ${email}, name: ${name}) [Y/n]? "; read key
         if [ "$key" != "n" ]; then
             break
         fi
