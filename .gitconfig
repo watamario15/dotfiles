@@ -8,20 +8,20 @@
 	process = git-lfs filter-process
 	required = true
 [diff]
-    tool = WinMerge
+    tool = vscode
 [difftool]
     prompt = false
-[difftool "WinMerge"]
-    cmd = 'WinMergeU.exe' -e -r -u -x -wl -wr -dl "a/$MERGED" -dr "b/$MERGED" "`wslpath -w $LOCAL`" "`wslpath -w $REMOTE`"
+[difftool "vscode"]
+    cmd = code --wait --diff "$LOCAL" "$REMOTE"
     trustExitCode = false
 [merge]
-    tool = WinMerge
+    tool = vscode
 [mergetool]
     prompt = false
     keepBackup = false
-[mergetool "WinMerge"]
-    cmd = 'WinMergeU.exe' -e -u -fm -wl -wr -dl "Mine File" -dm "Base File" -dr "Theirs File" "$LOCAL" "$BASE" "$REMOTE" -o "$MERGED"
+[mergetool "vscode"]
+    cmd = code --wait "$MERGED"
     trustExitCode = false
-[mergetool "Unity"]
+[mergetool "unity"]
     cmd = '/mnt/c/Program Files/Unity/Hub/Editor/2020.3.19f1/Editor/Data/Tools/UnityYAMLMerge.exe' merge -p "$BASE" "$REMOTE" "$LOCAL" "$MERGED"
     trustExitCode = false
