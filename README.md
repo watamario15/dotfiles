@@ -26,8 +26,8 @@ Aliases for Python, Git, apt, and various features including:
 - `tools/CeGCC` helps you building a Windows CE (ARMv5TEJ) application
 - `tools/XTBook` makes converting a MediaWiki site into a XTBook dictionary easier for you
 
-## Installation
-### Ubuntu
+# Installation
+## Ubuntu
 You can install by invoking the following commands:
 ```sh
 cd
@@ -41,7 +41,7 @@ Executing `./initialze.sh` sets up the Git and installs some essential packages.
 - Packages for SHARP Brain developments by `./initialize.sh brain`,
 - MediaWiki to XTBook convertion environment by `./initialize.sh xtbook`.
 
-### Termux and Brainux
+## Termux and Brainux
 Most of the installation process and features are the same; just use files in the respective directory. I replaced/removed unsupported features and added some terget-specific setup files. However, note that **you must run `initialize.sh` for the Brainux on a PC that has already mounted the Brainux partition and you must do some steps written in the script manually before running it**.
 
 The target specific files include:
