@@ -9,7 +9,7 @@ if [ $# -eq 1 ]; then
             echo "Installing the CASLII/COMETII simulator (Osaka University)..."
             cd
             curl -fLO https://www-hasegawa.ist.osaka-u.ac.jp/~ykoizumi/lecture/fco/files/casl2-2017-11-16.zip
-            unzip casl2-2017-11-16.zip
+            unzip -oq casl2-2017-11-16.zip
             cd casl2-2017-11-16
             chmod +x casl2 comet2
             mv casl2 comet2 /data/data/com.termux/files/usr/bin/
@@ -28,9 +28,16 @@ elif [ $# -eq 0 ]; then
     curl -fL https://raw.githubusercontent.com/puhitaku/rcs/master/scripts/fontify -o /data/data/com.termux/files/usr/bin/fontify
     chmod +x /data/data/com.termux/files/usr/bin/fontify
     echo "Setting up the Git..."
-    echo -n "Your email address: "; read email
+    while true; do
+        echo -n "Your email address: "; read email
+        echo -n "Your name: "; read name
+        echo -n "Correct (email: ${email}, name: ${name}) [Y/n]? "; read key
+        if [ "$key" != "n" ]; then
+            break
+        fi
+    done
+    cp .gitconfig ~/
     git config --global user.email ${email}
-    echo -n "Your name: "; read name
     git config --global user.name ${name}
     git config --global color.ui true
     git config --global core.quotepath false
