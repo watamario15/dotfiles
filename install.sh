@@ -8,7 +8,7 @@ for f in .??*; do
     [ "$f" = ".git" ] && continue
     [ "$f" = ".gitconfig.local.template" ] && continue
     [ "$f" = ".gitmodules" ] && continue
-    [ "$f" = ".gitconfig" ] && cp $f ~/ && continue
+    [ "$f" = ".gitconfig" ] && continue
 
     # Symlink を貼る
     ln -snfv ${PWD}/"$f" ~/

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -e
+wd=$(cd `dirname $0`; pwd) # where this dotfiles directory exists
 
 if [ $# -eq 1 ]; then
     if [ $1 = "caslcomet" ]; then
@@ -54,7 +55,7 @@ if [ $# -eq 1 ]; then
         cd MkXTBWikiplexus/build.unix
         make
 
-        cd `dirname $0` # Come back to the dotfiles directory
+        cd ${wd}
         sudo cp tools/XTBook /usr/local/bin/
         sudo chmod +x /usr/local/bin/XTBook
         while true; do
@@ -64,7 +65,7 @@ if [ $# -eq 1 ]; then
                 break
             fi
         done
-        sudo sed -i -e "s%^DICTDIR=.*%DICTDIR=${dict}%" -e "s%^PLIST=.*%PLIST=$(cd `dirname $0`; pwd)/tools/info-plists%" /usr/local/bin/XTBook
+        sudo sed -i -e "s%^DICTDIR=.*%DICTDIR=${dict}%" -e "s%^PLIST=.*%PLIST=${wd}/tools/info-plists%" /usr/local/bin/XTBook
         echo "Done."
 
     else
@@ -87,6 +88,7 @@ elif [ $# -eq 0 ]; then
             break
         fi
     done
+    cp .gitconfig ~/
     git config --global user.email ${email}
     git config --global user.name ${name}
     git config --global color.ui true
