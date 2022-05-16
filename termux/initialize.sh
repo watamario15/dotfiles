@@ -15,7 +15,7 @@ if [ $# -eq 1 ]; then
             mv casl2 comet2 /data/data/com.termux/files/usr/bin/
             cd ..
             rm -rf casl2-2017-11-16.zip casl2-2017-11-16
-            echo "The Installation Completed."
+            echo "Done."
         fi
     else
         echo "No such option: $1"
@@ -25,9 +25,10 @@ elif [ $# -eq 0 ]; then
     echo "Installing essential packages..."
     apt update
     apt install -y git-lfs curl wget zip unzip gawk vim build-essential gdb
+    curl -sfL https://www.7-zip.org/a/7z2107-linux-x64.tar.xz | sudo tar Jxfp - -C /usr/local/bin
     curl -fL https://raw.githubusercontent.com/puhitaku/rcs/master/scripts/fontify -o /data/data/com.termux/files/usr/bin/fontify
     chmod +x /data/data/com.termux/files/usr/bin/fontify
-    echo "Setting up the Git..."
+    echo "Setting up Git..."
     while true; do
         echo -n "Your email address: "; read email
         echo -n "Your name: "; read name
