@@ -29,5 +29,5 @@
     cmd = '/mnt/c/Users/watamario15/AppData/Local/Programs/WinMerge/WinMergeU.exe' "$MERGED"
     trustExitCode = false
 [mergetool "unity"]
-    cmd = '/mnt/c/Program Files/Unity/Hub/Editor/2020.3.19f1/Editor/Data/Tools/UnityYAMLMerge.exe' merge -p "$BASE" "$REMOTE" "$LOCAL" "$MERGED"
+    cmd = '/mnt/c/Program Files/Unity/Hub/Editor/2019.4.39f1/Editor/Data/Tools/UnityYAMLMerge.exe' merge -p "$BASE" "$REMOTE" "$LOCAL" "$MERGED"
     trustExitCode = false
