@@ -25,7 +25,6 @@ elif [ $# -eq 0 ]; then
     echo "Installing essential packages..."
     apt update
     apt install -y git-lfs curl wget zip unzip gawk vim build-essential gdb
-    curl -sfL https://www.7-zip.org/a/7z2107-linux-x64.tar.xz | sudo tar Jxfp - -C /usr/local/bin
     curl -fL https://raw.githubusercontent.com/puhitaku/rcs/master/scripts/fontify -o /data/data/com.termux/files/usr/bin/fontify
     chmod +x /data/data/com.termux/files/usr/bin/fontify
     echo "Setting up Git..."
