@@ -23,7 +23,7 @@
     prompt = false
     keepBackup = false
 [mergetool "vscode"]
-    cmd = code --wait "$MERGED"
+    cmd = code --wait --merge "$REMOTE" "$LOCAL" "$BASE" "$MERGED"
     trustExitCode = false
 [mergetool "winmerge"]
     cmd = '/mnt/c/Users/watamario15/AppData/Local/Programs/WinMerge/WinMergeU.exe' "$MERGED"

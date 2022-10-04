@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 set -e
 
-DICTDIR=~/Documents/Dictionaries
-MKXTBDIR=~/MkXTBWikiplexus/build.unix
-PLIST=~/dotfiles/tools/info-plists
+# DICTDIR=~/Documents/Dictionaries
+# MKXTBDIR=~/MkXTBWikiplexus/build.unix
+# PLIST=~/dotfiles/tools/info-plists
 
 if [ $# -ne 3 ]; then
     echo "XTBook dictionary convertion assistant 2203 by watamario15"
     echo "This script obtains a MediaWiki dump, converts it to XTBook format, and create a 7z archive for uploading."
-    echo 
+    echo
     echo "Usage: XTBook [Source] [WikiName] [Date]"
     echo "Examples: XTBook wikimedia jawiki 20220101           # Japanese Wikipedia"
     echo "          XTBook uncyclomedia jaunwiki 20220101      # Japanese Uncyclopedia"
