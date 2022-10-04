@@ -4,6 +4,7 @@ set -e
 # DICTDIR=~/Documents/Dictionaries
 # MKXTBDIR=~/MkXTBWikiplexus/build.unix
 # PLIST=~/dotfiles/tools/info-plists
+# 7ZFLAG=-v2g
 
 if [ $# -ne 3 ]; then
     echo "XTBook dictionary convertion assistant 2203 by watamario15"
@@ -52,7 +53,7 @@ elif [ $1 = "uncyclomedia" ]; then
         if [ -e ${PLIST}/$2.plist ]; then
             cp ${PLIST}/$2.plist $2-$3.xtbdict/info.plist
             echo -n "Creating a 7z archive..."
-            7zz a -t7z -v2g -mx=9 -mmt=on $1-$2.xtbdict.7z $1-$2.xtbdict
+            7zz a -mx=9 ${7ZFLAG} $1-$2.xtbdict.7z $1-$2.xtbdict
         else
             echo "WARNING: No preset info.plist for this wiki found. You must add it yourself manually to make the created dictionary recognizable by XTBook."
             echo "WARNING: Skipping a 7z archive creation as info.plist is missing."
@@ -73,7 +74,7 @@ elif [ $1 = "uncyclomedia" ]; then
 elif [ $1 = "fandom" ]; then
     echo "Downloading and extracting an XML dump, and running MkXTBWikiplexus..."
     curl -fLO https://s3.amazonaws.com/wikia_xml_dumps/${2:0:1}/${2:0:2}/$2_pages_current.xml.7z
-    7zz x -t7z $2_pages_current.xml.7z -so | ${MKXTBDIR}/MkXTBWikiplexus-bin -o $2-$3.xtbdict &> /dev/null
+    7zz x $2_pages_current.xml.7z -so | ${MKXTBDIR}/MkXTBWikiplexus-bin -o $2-$3.xtbdict &> /dev/null
     rm -f $2_pages_current.xml.7z
 
 elif [[ $1 = *.xml ]]; then
@@ -101,7 +102,7 @@ if [ -e ${PLIST}/$2.plist ]; then
     cp ${PLIST}/$2.plist info.plist
     cd ..
     echo -n "Creating a 7z archive..."
-    7zz a -t7z -v2g -mx=9 -mmt=on $2-$3.xtbdict.7z $2-$3.xtbdict
+    7zz a -mx=9 ${7ZFLAG} $2-$3.xtbdict.7z $2-$3.xtbdict
 else
     echo "WARNING: No preset info.plist for this wiki found. You must add it yourself manually to make the created dictionary recognizable by XTBook."
     echo "WARNING: Skipping a 7z archive creation as info.plist is missing."
