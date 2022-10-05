@@ -6,6 +6,19 @@ set -e
 # PLIST=~/dotfiles/tools/info-plists
 # 7ZFLAG=-v2g
 
+my7z() {
+    if which 7z; then
+        7z $@
+        return 0
+    elif which 7zz; then
+        7zz $@
+        return 0
+    else
+        echo "Error: 7-Zip not found."
+        return 127
+    fi
+}
+
 if [ $# -ne 3 ]; then
     echo "XTBook dictionary convertion assistant 2203 by watamario15"
     echo "This script obtains a MediaWiki dump, converts it to XTBook format, and create a 7z archive for uploading."
@@ -26,7 +39,7 @@ if [ $# -ne 3 ]; then
     echo "* You don't need a 7z archive to use the dictionary on XTBook, and you can cancel the process if you don't need it."
     echo "  It's basically just for me; needs to keep the OSDN repository updated."
     echo "* Check the console log when you find the converted data corrupted. You may find the reason there."
-    echo "* Make sure you have *official 7-zip command line tool (7zz, not p7zip)* and *ImageMagick* installed."
+    echo "* Make sure you have *7-Zip (7zz or 7z)* and *ImageMagick* installed."
     exit
 fi
 
@@ -53,7 +66,7 @@ elif [ $1 = "uncyclomedia" ]; then
         if [ -e ${PLIST}/$2.plist ]; then
             cp ${PLIST}/$2.plist $2-$3.xtbdict/info.plist
             echo -n "Creating a 7z archive..."
-            7zz a -mx=9 ${7ZFLAG} $1-$2.xtbdict.7z $1-$2.xtbdict
+            my7z a -mx=9 ${7ZFLAG} $1-$2.xtbdict.7z $1-$2.xtbdict
         else
             echo "WARNING: No preset info.plist for this wiki found. You must add it yourself manually to make the created dictionary recognizable by XTBook."
             echo "WARNING: Skipping a 7z archive creation as info.plist is missing."
@@ -74,7 +87,7 @@ elif [ $1 = "uncyclomedia" ]; then
 elif [ $1 = "fandom" ]; then
     echo "Downloading and extracting an XML dump, and running MkXTBWikiplexus..."
     curl -fLO https://s3.amazonaws.com/wikia_xml_dumps/${2:0:1}/${2:0:2}/$2_pages_current.xml.7z
-    7zz x $2_pages_current.xml.7z -so | ${MKXTBDIR}/MkXTBWikiplexus-bin -o $2-$3.xtbdict &> /dev/null
+    my7z x $2_pages_current.xml.7z -so | ${MKXTBDIR}/MkXTBWikiplexus-bin -o $2-$3.xtbdict &> /dev/null
     rm -f $2_pages_current.xml.7z
 
 elif [[ $1 = *.xml ]]; then
@@ -102,7 +115,7 @@ if [ -e ${PLIST}/$2.plist ]; then
     cp ${PLIST}/$2.plist info.plist
     cd ..
     echo -n "Creating a 7z archive..."
-    7zz a -mx=9 ${7ZFLAG} $2-$3.xtbdict.7z $2-$3.xtbdict
+    my7z a -mx=9 ${7ZFLAG} $2-$3.xtbdict.7z $2-$3.xtbdict
 else
     echo "WARNING: No preset info.plist for this wiki found. You must add it yourself manually to make the created dictionary recognizable by XTBook."
     echo "WARNING: Skipping a 7z archive creation as info.plist is missing."
