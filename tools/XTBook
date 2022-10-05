@@ -4,7 +4,7 @@ set -e
 # DICTDIR=~/Documents/Dictionaries
 # MKXTBDIR=~/MkXTBWikiplexus/build.unix
 # PLIST=~/dotfiles/tools/info-plists
-# 7ZFLAG=-v2g
+# XTB_7ZFLAG=-v2g
 
 my7z() {
     if which 7z; then
@@ -66,7 +66,7 @@ elif [ $1 = "uncyclomedia" ]; then
         if [ -e ${PLIST}/$2.plist ]; then
             cp ${PLIST}/$2.plist $2-$3.xtbdict/info.plist
             echo -n "Creating a 7z archive..."
-            my7z a -mx=9 ${7ZFLAG} $1-$2.xtbdict.7z $1-$2.xtbdict
+            my7z a -mx=9 ${XTB_7ZFLAG} $1-$2.xtbdict.7z $1-$2.xtbdict
         else
             echo "WARNING: No preset info.plist for this wiki found. You must add it yourself manually to make the created dictionary recognizable by XTBook."
             echo "WARNING: Skipping a 7z archive creation as info.plist is missing."
@@ -115,7 +115,7 @@ if [ -e ${PLIST}/$2.plist ]; then
     cp ${PLIST}/$2.plist info.plist
     cd ..
     echo -n "Creating a 7z archive..."
-    my7z a -mx=9 ${7ZFLAG} $2-$3.xtbdict.7z $2-$3.xtbdict
+    my7z a -mx=9 ${XTB_7ZFLAG} $2-$3.xtbdict.7z $2-$3.xtbdict
 else
     echo "WARNING: No preset info.plist for this wiki found. You must add it yourself manually to make the created dictionary recognizable by XTBook."
     echo "WARNING: Skipping a 7z archive creation as info.plist is missing."

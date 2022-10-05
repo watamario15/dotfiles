@@ -58,7 +58,7 @@ if [ $# -eq 1 ]; then
         echo "export DICTDIR=${dict}" >> ~/.bash_profile
         echo "export MKXTBDIR=${HOME}/MkXTBWikiplexus/build.unix" >> ~/.bash_profile
         echo "export PLIST=${wd}/tools/info-plists" >> ~/.bash_profile
-        echo "export 7ZFLAG=${flag}" >> ~/.bash_profile
+        echo "export XTB_7ZFLAG=${flag}" >> ~/.bash_profile
         echo "Done."
 
     else
