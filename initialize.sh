@@ -29,7 +29,7 @@ if [ $# -eq 1 ]; then
         sudo chmod +x /usr/local/bin/CeGCC
         echo "Installing packages for SHARP Brain developments..."
         sudo apt update
-        sudo apt install -y gcc-arm-mingw32ce gcc-arm-linux-gnueabi bison flex libncurses5-dev libssl-dev debootstrap qemu-user-static
+        sudo apt install -y gcc-arm-mingw32ce qemu-user-static
         echo "Done."
 
     elif [ $1 = "xtbook" ]; then
@@ -75,7 +75,7 @@ if [ $# -eq 1 ]; then
 elif [ $# -eq 0 ]; then
     echo "Installing essential packages..."
     sudo apt update
-    sudo apt install -y git-lfs curl wget zip unzip bzip2 gawk vim build-essential gdb mingw-w64 exfat-fuse exfat-utils xsel peco
+    sudo apt install -y git-lfs curl wget zip unzip bzip2 gawk vim build-essential gdb mingw-w64 xsel peco
     curl -sfL https://www.7-zip.org/a/7z2201-linux-x64.tar.xz | sudo tar Jxfp - -C /usr/local/bin
     sudo curl -fL https://raw.githubusercontent.com/puhitaku/rcs/master/scripts/fontify -o /usr/local/bin/fontify
     sudo chmod +x /usr/local/bin/fontify
