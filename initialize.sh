@@ -34,38 +34,31 @@ if [ $# -eq 1 ]; then
 
     elif [ $1 = "xtbook" ]; then
         echo "Installing packages..."
-        sudo apt install -y mecab libmecab-dev mecab-ipadic-utf8 kakasi libkakasi2-dev libxml2-dev liblzma-dev imagemagick
-
-        echo "Setting up libiconv..."
-        cd /usr/src
-        curl -sfL https://ftp.gnu.org/gnu/libiconv/libiconv-1.14.tar.gz | sudo tar zxvf -
-        cd libiconv-1.14
-        sudo sed -i -e 's%_GL_WARN_ON_USE (gets%//_GL_WARN_ON_USE (gets%' srclib/stdio.in.h
-        sudo ./configure
-        sudo make
-        sudo make install
-        sudo sh -c 'echo "/usr/local/lib" >> /etc/ld.so.conf'
-        sudo ldconfig
+        sudo apt install -y mecab-ipadic libmecab2 libkakasi2 imagemagick libmecab-dev libkakasi2-dev libxml2-dev liblzma-dev
 
         echo "Setting up MkXTBWikiplexus..."
-        cd
-        sudo rm -rf /usr/src/libiconv-1.14
         curl -fL https://github.com/yvt/xtbook/releases/download/v0.2.6/MkXTBWikiplexus-R3.tar.gz | tar zxvf -
         sudo sed -i -e 's/gets(buf)/scanf("%s",buf)!=EOF/' MkXTBWikiplexus/MkImageComplex/main.cpp
+        sudo sed -i -e 's/-liconv //' MkXTBWikiplexus/build.unix/Makefile
         cd MkXTBWikiplexus/build.unix
         make
+        sudo apt remove -y libmecab-dev libkakasi2-dev libxml2-dev liblzma-dev
 
         cd ${wd}
         sudo cp tools/XTBook /usr/local/bin/
         sudo chmod +x /usr/local/bin/XTBook
         while true; do
             echo -n "Your dictionary path: "; read dict
-            echo -n "Correct (${dict}) [Y/n]? "; read key
+            echo -n "7-Zip flag: "; read flag
+            echo -n "Correct (DICTDIR: ${dict}, 7ZFLAG: ${flag}) [Y/n]? "; read key
             if [ "$key" != "n" ]; then
                 break
             fi
         done
-        sudo sed -i -e "s%^DICTDIR=.*%DICTDIR=${dict}%" -e "s%^PLIST=.*%PLIST=${wd}/tools/info-plists%" /usr/local/bin/XTBook
+        echo "export DICTDIR=${dict}" >> ~/.bash_profile
+        echo "export MKXTBDIR=${HOME}/MkXTBWikiplexus/build.unix" >> ~/.bash_profile
+        echo "export PLIST=${wd}/tools/info-plists" >> ~/.bash_profile
+        echo "export 7ZFLAG=${flag}" >> ~/.bash_profile
         echo "Done."
 
     else
@@ -77,7 +70,7 @@ elif [ $# -eq 0 ]; then
     sudo apt update
     sudo apt install -y git-lfs curl wget zip unzip bzip2 gawk vim build-essential gdb mingw-w64 xsel peco
     curl -sfL https://www.7-zip.org/a/7z2201-linux-x64.tar.xz | sudo tar Jxfp - -C /usr/local/bin
-    sudo curl -fL https://raw.githubusercontent.com/puhitaku/rcs/master/scripts/fontify -o /usr/local/bin/fontify
+    sudo curl -fL https://github.com/puhitaku/rcs/raw/master/scripts/fontify -o /usr/local/bin/fontify
     sudo chmod +x /usr/local/bin/fontify
     echo "Setting up Git..."
     while true; do
