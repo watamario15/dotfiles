@@ -7,10 +7,10 @@ set -e
 # XTB_7ZFLAG=-v2g
 
 my7z() {
-    if which 7z; then
+    if which 7z &> /dev/null; then
         7z $@
         return 0
-    elif which 7zz; then
+    elif which 7zz &> /dev/null; then
         7zz $@
         return 0
     else
@@ -20,15 +20,15 @@ my7z() {
 }
 
 if [ $# -ne 3 ]; then
-    echo "XTBook dictionary convertion assistant 2203 by watamario15"
+    echo "XTBook dictionary convertion assistant 2210 by watamario15"
     echo "This script obtains a MediaWiki dump, converts it to XTBook format, and create a 7z archive for uploading."
     echo
     echo "Usage: XTBook [Source] [WikiName] [Date]"
-    echo "Examples: XTBook wikimedia jawiki 20220101           # Japanese Wikipedia"
-    echo "          XTBook uncyclomedia jaunwiki 20220101      # Japanese Uncyclopedia"
-    echo "          XTBook uncyclomedia jaunwikiimg 20220101   # Japanese Uncyclopedia Image"
-    echo "          XTBook fandom jabrain 20220101             # Japanese Brain Wiki"
-    echo "          XTBook ja-wiki.xml jasomewiki 20220101     # XML dump"
+    echo "Examples: XTBook wikimedia jawiki 20230101           # Japanese Wikipedia"
+    echo "          XTBook uncyclomedia jaunwiki 20230101      # Japanese Uncyclopedia"
+    echo "          XTBook uncyclomedia jaunwikiimg 20230101   # Japanese Uncyclopedia Image"
+    echo "          XTBook fandom jabrain 20230101             # Japanese Brain Wiki"
+    echo "          XTBook ja-wiki.xml jasomewiki 20230101     # XML dump"
     echo
     echo "Hints:"
     echo "* You may need to visit each dump file's distribution web site to obtain its actual name and release date."
