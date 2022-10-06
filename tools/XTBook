@@ -47,13 +47,14 @@ mkdir -p ${DICTDIR}
 cd ${DICTDIR}
 if [ $1 = "wikimedia" ]; then
     echo "Downloading and extracting an XML dump, and running MkXTBWikiplexus..."
-    curl -fL https://dumps.wikimedia.org/$2/$3/$2-$3-pages-articles.xml.bz2 | bunzip2 | ${MKXTBDIR}/MkXTBWikiplexus-bin -o $2-$3.xtbdict &> /dev/null
+    curl -sSfL https://dumps.wikimedia.org/$2/$3/$2-$3-pages-articles.xml.bz2 | bunzip2 | ${MKXTBDIR}/MkXTBWikiplexus-bin -o $2-$3.xtbdict -s 2> /dev/null | ${MKXTBDIR}/MkRax-bin -o Articles.db.rax
+    mv Articles.db.rax $2-$3.xtbdict/
 
 elif [ $1 = "uncyclomedia" ]; then
     if [[ $2 = *unwikiimg ]]; then
         mkdir ${2%%unwikiimg*}-images
         echo "Downloading and extracting images..."
-        curl -fLO https://download.uncyc.org/${2%%unwikiimg*}-images.zip
+        curl -sSfLO https://download.uncyc.org/${2%%unwikiimg*}-images.zip
         unzip -oqj ${2%%unwikiimg*}-images.zip -d ${2%%unwikiimg*}-images
         mkdir resized
         echo "Converting images..."
@@ -76,7 +77,8 @@ elif [ $1 = "uncyclomedia" ]; then
 
     elif [[ $2 = *unwiki ]]; then
         echo "Downloading and extracting an XML dump, and running MkXTBWikiplexus..."
-        curl -fL https://download.uncyc.org/${2%%unwiki*}-wiki.xml.bz2 | bunzip2 | ${MKXTBDIR}/MkXTBWikiplexus-bin -o $2-$3.xtbdict &> /dev/null
+        curl -sSfL https://download.uncyc.org/${2%%unwiki*}-wiki.xml.bz2 | bunzip2 | ${MKXTBDIR}/MkXTBWikiplexus-bin -o $2-$3.xtbdict -s 2> /dev/null | ${MKXTBDIR}/MkRax-bin -o Articles.db.rax
+        mv Articles.db.rax $2-$3.xtbdict/
 
     else
         echo "Error: Given [WikiName] isn't *unwiki or *unwikiimg."
@@ -86,13 +88,15 @@ elif [ $1 = "uncyclomedia" ]; then
 
 elif [ $1 = "fandom" ]; then
     echo "Downloading and extracting an XML dump, and running MkXTBWikiplexus..."
-    curl -fLO https://s3.amazonaws.com/wikia_xml_dumps/${2:0:1}/${2:0:2}/$2_pages_current.xml.7z
-    my7z x $2_pages_current.xml.7z -so | ${MKXTBDIR}/MkXTBWikiplexus-bin -o $2-$3.xtbdict &> /dev/null
+    curl -sSfLO https://s3.amazonaws.com/wikia_xml_dumps/${2:0:1}/${2:0:2}/$2_pages_current.xml.7z
+    my7z x $2_pages_current.xml.7z -so | ${MKXTBDIR}/MkXTBWikiplexus-bin -o $2-$3.xtbdict -s 2> /dev/null | ${MKXTBDIR}/MkRax-bin -o Articles.db.rax
+    mv Articles.db.rax $2-$3.xtbdict/
     rm -f $2_pages_current.xml.7z
 
 elif [[ $1 = *.xml ]]; then
     echo "Running MkXTBWikiplexus..."
-    ${MKXTBDIR}/MkXTBWikiplexus-bin -o $2-$3.xtbdict < $1 &> /dev/null
+    ${MKXTBDIR}/MkXTBWikiplexus-bin -o $2-$3.xtbdict -s < $1 2> /dev/null | ${MKXTBDIR}/MkRax-bin -o Articles.db.rax
+    mv Articles.db.rax $2-$3.xtbdict/
 
 else
     echo "Error: Source $1 is not supported."
@@ -107,8 +111,6 @@ ${MKXTBDIR}/YomiGenesis-bin < BaseNames.csv > Yomi.txt 2> /dev/null
 echo "Running MkXTBIndexDB..."
 ${MKXTBDIR}/MkXTBIndexDB-bin -o Search Yomi.txt
 
-echo "Compressing the converted article with MkRax..."
-${MKXTBDIR}/MkRax-bin -o Articles.db.rax  < Articles.db
 rm -f Articles.db Yomi.txt BaseNames.csv Titles.csv
 
 if [ -e ${PLIST}/$2.plist ]; then
