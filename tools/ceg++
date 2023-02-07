@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -e
+
+if [ $# -eq 0 ]; then
+  echo "Error: Specify at least one C++ source file to compile."
+  exit 1
+fi
+
+EXENAME=${EXENAME:-AppMain}
+RESNAME=${RESNAME:-resource}
+
+if [ -e "$RESNAME" ]; then
+  # With resource
+  rm -f ./*.o
+
+  echo "*** COMPILING ..."
+  "${GCCPATH}arm-mingw32ce-g++" -Wall -Wextra -O3 -std=gnu++2a -march=armv5tej -mcpu=arm926ej-s -c "$@"
+
+  echo "*** COMPILING RESOURCES ${RESNAME}.rc ..."
+  "${GCCPATH}arm-mingw32ce-windres" "${RESNAME}.rc" "${RESNAME}.o"
+
+  echo "*** LINKING ..."
+  "${GCCPATH}arm-mingw32ce-g++" ./*.o "${RESNAME}.o" -static -s -lcommctrl -lcommdlg -lmmtimer -lm -o "${EXENAME}.exe"
+else
+  # Without resource
+  echo "*** COMPILING ..."
+  "${GCCPATH}arm-mingw32ce-g++" -Wall -Wextra -O3 -std=gnu++2a -march=armv5tej -mcpu=arm926ej-s -static -s -lcommctrl -lcommdlg -lmmtimer -lm -o "${EXENAME}.exe" "$@"
+fi
+
+echo "OK"

@@ -9,22 +9,22 @@ Aliases for Python, Git, apt, and various features including:
 - Search your command history by `hist`
 
 ## Nano
-- 4 speces for an indent
-- Display tab as 4 spaces
+- 2 speces for an indent
+- Display tab as 2 spaces
 - Use provided "natural" keybindings
 - Enable all syntax definitions
 
 ## Vim
 - Syntax highlighting
 - Use UTF-8 encoding
-- 4 speces for an indent
-- Display tab as 4 spaces
+- 2 speces for an indent
+- Display tab as 2 spaces
 - Vim-airline
 - Automatically add closing tags for HTML/XML
 
 ## Tools
-- `tools/CeGCC` helps you building a Windows CE (ARMv5TEJ) application
-- `tools/XTBook` makes converting a MediaWiki site into a XTBook dictionary easier for you
+- `tools/cegcc` and `tools/ceg++` helps you building a Windows CE (ARMv5TEJ) application
+- `tools/xtbconv` makes converting a MediaWiki site into a XTBook dictionary easier for you
 
 # Installation
 ## Ubuntu

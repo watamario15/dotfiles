@@ -88,6 +88,8 @@ alias aptu='pkg upgrade -y'
 alias aptf='apt --fix-broken install -y'
 alias editrc='nano -w ~/.bashrc'
 alias applyrc='source ~/.bashrc'
+alias ng++='g++ -Wall -Wextra -O3 -std=gnu++2a -static -s -lm'
+alias ngcc='gcc -Wall -Wextra -O3 -std=gnu2x -static -s -lm'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
