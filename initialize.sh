@@ -25,9 +25,8 @@ if [ $# -eq 1 ]; then
       sudo sh -c 'echo "
 deb [trusted=yes] https://max.kellermann.name/debian cegcc_buster-default main" >> /etc/apt/sources.list'
     fi
-    sudo cp tools/cegcc /usr/local/bin/
-    sudo cp tools/ceg++ /usr/local/bin/
-    sudo chmod +x /usr/local/bin/cegcc /usr/local/bin/ceg++
+    sudo cp -p tools/cegcc /usr/local/bin/
+    sudo cp -p tools/ceg++ /usr/local/bin/
     echo "Installing packages for SHARP Brain development..."
     sudo apt update
     sudo apt install -y gcc-arm-mingw32ce qemu-user-static
@@ -47,8 +46,7 @@ deb [trusted=yes] https://max.kellermann.name/debian cegcc_buster-default main" 
     sudo apt remove -y libmecab-dev libkakasi2-dev libxml2-dev liblzma-dev
 
     cd "${wd}"
-    sudo cp tools/xtbconv /usr/local/bin/
-    sudo chmod +x /usr/local/bin/xtbconv
+    sudo cp -p tools/xtbconv /usr/local/bin/
     while true; do
       echo -n "Your dictionary path: "; read -r dict
       echo -n "Correct (DICTDIR: ${dict}) [Y/n]? "; read -r key

@@ -21,23 +21,23 @@ if [ $# -ne 3 ] && [ $# -ne 4 ]; then
   echo "XTBook dictionary convertion helper 2302"
   echo "This script obtains a MediaWiki dump, converts it to XTBook format, and create a 7z archive for uploading."
   echo
-  echo "Usage: XTBook <source> <wiki name> <date> [split size]"
-  echo "Examples: XTBook wikimedia jawiki 20230101 1900M    # Japanese Wikipedia"
-  echo "          XTBook uncyclomedia jaunwiki 20230101 2G  # Japanese Uncyclopedia"
-  echo "          XTBook uncyclomedia jaunwikiimg 20230101  # Japanese Uncyclopedia Image"
-  echo "          XTBook fandom jabrain 20230101            # Japanese Brain Wiki"
-  echo "          XTBook wiki.xml somewiki 20230101         # XML dump"
+  echo "Usage: $0 <source> <wiki name> <date> [split size]"
+  echo "Examples: $0 wikimedia jawiki 20230101 1900M    # Japanese Wikipedia"
+  echo "          $0 uncyclomedia jaunwiki 20230101 2G  # Japanese Uncyclopedia"
+  echo "          $0 uncyclomedia jaunwikiimg 20230101  # Japanese Uncyclopedia Image"
+  echo "          $0 fandom jabrain 20230101            # Japanese Brain Wiki"
+  echo "          $0 wiki.xml somewiki 20230101         # XML dump"
   echo
   echo "Hints:"
   echo "* You may need to visit each dump file's distribution web site to obtain its actual name and release date."
   echo "* This script fails when your specified wiki doesn't provide its dump file or you give it wrong information."
   echo "* You may see warnings related to Info.plist since I provide only a few as preset."
   echo "  You can create it for your preferred wiki by customizing presets and adding it to the created .xtbdict folder manually."
-  echo "* To convert a MediaWiki which this script doesn't support, download/extract its XML dump file manually and specify it at [Source]."
+  echo "* To convert a MediaWiki which this script doesn't support, download/extract its XML dump file manually and specify it at <source>."
   echo "* You don't need an archive to use the dictionary on XTBook, and you can cancel the process if you don't need it."
   echo "  It's basically just for me; needs to keep the OSDN repository updated."
   echo "* Check the console log when you find the converted data corrupted. You may find the reason there."
-  echo "* You need *7-Zip (7zz or 7z)* for Fandom Wikis and *ImageMagick* for Uncyclopedia Image installed."
+  echo "* You need *7-Zip (7zz or 7z)* for Fandom and *ImageMagick* for Uncyclopedia Image installed."
   exit
 fi
 
@@ -81,7 +81,7 @@ elif [ "$1" = "uncyclomedia" ]; then
     rm -rf resized "${2%%unwikiimg*}-images" "$2-$3.xtbdict/Titles.txt" "${2%%unwikiimg*}-images.zip"
     if [ -e "${PLIST}/$2.plist" ]; then
       cp "${PLIST}/$2.plist" "$2-$3.xtbdict/Info.plist"
-      echo -n "Archiving..."
+      echo "Archiving..."
       if [ $# -eq 4 ]; then
         tar cf - "$2-$3.xtbdict" | split --numeric-suffixes=1 -a 3 -b "$4" - "$2-$3.xtbdict.tar."
         test "${PIPESTATUS[0]}" -eq 0
@@ -153,7 +153,7 @@ rm -f Articles.db Yomi.txt BaseNames.csv Titles.csv
 if [ -e "${PLIST}/$2.plist" ]; then
   cp "${PLIST}/$2.plist" Info.plist
   cd ..
-  echo -n "Creating a Archiving..."
+  echo "Archiving..."
   if [ $# -eq 4 ]; then
     tar cf - "$2-$3.xtbdict" | split --numeric-suffixes=1 -a 3 -b "$4" - "$2-$3.xtbdict.tar."
     test "${PIPESTATUS[0]}" -eq 0
