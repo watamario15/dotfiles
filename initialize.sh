@@ -64,12 +64,14 @@ export PLIST=${wd}/tools/info-plists" >> ~/.bash_profile
   fi
 
 elif [ $# -eq 0 ]; then
-  echo "Installing essential packages..."
-  sudo apt update
-  sudo apt install -y git-lfs curl wget zip unzip bzip2 gawk vim build-essential gdb mingw-w64 xsel peco
-  curl -sfL https://www.7-zip.org/a/7z2201-linux-x64.tar.xz | sudo tar Jxfp - -C /usr/local/bin
-  sudo curl -fL https://github.com/puhitaku/rcs/raw/master/scripts/fontify -o /usr/local/bin/fontify
-  sudo chmod +x /usr/local/bin/fontify
+  echo -n "InstalL essential packages [Y/n]?"; read -r key
+  if [ "$key" != "n" ]; then
+    sudo apt update
+    sudo apt install -y git-lfs curl wget zip unzip bzip2 gawk vim build-essential gdb mingw-w64 xsel peco
+    curl -sfL https://www.7-zip.org/a/7z2201-linux-x64.tar.xz | sudo tar Jxfp - -C /usr/local/bin
+    sudo curl -fL https://github.com/puhitaku/rcs/raw/master/scripts/fontify -o /usr/local/bin/fontify
+    sudo chmod +x /usr/local/bin/fontify
+  fi
   echo "Setting up Git..."
   while true; do
     echo -n "Your email address: "; read -r email
