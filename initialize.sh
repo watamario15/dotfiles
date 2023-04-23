@@ -86,6 +86,9 @@ elif [ $# -eq 0 ]; then
   git config --global user.name "${name}"
   git config --global color.ui true
   git config --global core.quotepath false
+  git config --global gpg.format ssh
+  git config --global commit.gpgsign true
+  git config --global user.signingkey "${HOME}/.ssh/id_ed25519.pub"
   echo "The Initialization Completed."
 
 else
