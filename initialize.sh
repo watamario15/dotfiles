@@ -48,15 +48,17 @@ deb [trusted=yes] https://max.kellermann.name/debian cegcc_buster-default main" 
     cd "${wd}"
     sudo cp -p tools/xtbconv /usr/local/bin/
     while true; do
-      echo -n "Your dictionary path: "; read -r dict
-      echo -n "Correct (DICTDIR: ${dict}) [Y/n]? "; read -r key
+      read -rp "Your dictionary path: " dict
+      read -rp "Correct (DICTDIR: ${dict:-"<Keep Current>"})? [Y/n] " key
       if [ "$key" != "n" ]; then
         break
       fi
     done
-    echo "export DICTDIR=${dict}
+    if [ -n "${dict}" ]; then
+      echo "export DICTDIR=${dict}
 export PATH=$PATH:$HOME/MkXTBWikiplexus/build.unix
 export PLIST=${wd}/tools/info-plists" >> ~/.bash_profile
+    fi
     echo "Done."
 
   else
@@ -64,7 +66,7 @@ export PLIST=${wd}/tools/info-plists" >> ~/.bash_profile
   fi
 
 elif [ $# -eq 0 ]; then
-  echo -n "InstalL essential packages [Y/n]?"; read -r key
+  read -rp "InstalL essential packages? [Y/n]" key
   if [ "$key" != "n" ]; then
     sudo apt update
     sudo apt install -y git-lfs curl wget zip unzip bzip2 gawk vim build-essential gdb mingw-w64 xsel peco
@@ -74,9 +76,9 @@ elif [ $# -eq 0 ]; then
   fi
   echo "Setting up Git..."
   while true; do
-    echo -n "Your email address: "; read -r email
-    echo -n "Your name: "; read -r name
-    echo -n "Correct (email: ${email}, name: ${name}) [Y/n]? "; read -r key
+    read -rp "Your email address: " email
+    read -rp "Your name: " name
+    read -rp "Correct (email: ${email:=$(git config user.email)}, name: ${name:=$(git config user.name)})? [Y/n] " key
     if [ "$key" != "n" ]; then
       break
     fi
