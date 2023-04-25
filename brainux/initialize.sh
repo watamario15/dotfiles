@@ -6,11 +6,11 @@ echo "Make sure that you've manually expanded the rootfs partition before runnin
 echo "Remounting the SD with dev enabled..."
 echo "rootfs devices:"
 mount | grep rootfs
-echo -n "Enter the SD rootfs device (ex. sdb2): "; read -r sd
+read -rp "Enter the SD rootfs device (ex. sdb2): " sd
 sudo mount -o remount,dev "/dev/${sd}"
 mount | grep rootfs
 
-echo -n "Enter the SD rootfs full path (without the last slash): "; read -r sd
+read -rp "Enter the SD rootfs full path (without the last slash): " sd
 
 echo "Copying files..."
 sudo cp "$(which casl2)" "$(which comet2)" "$(which fontify)" swap usbg "${sd}/usr/local/bin/"
