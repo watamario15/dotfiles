@@ -22,7 +22,7 @@ if [ $# -eq 1 ]; then
   fi
 
 elif [ $# -eq 0 ]; then
-  read -rp "InstalL essential packages? [Y/n]" key
+  read -rp "Install essential packages? [Y/n]" key
   if [ "$key" != "n" ]; then
   apt update
   apt install -y git-lfs curl wget zip unzip gawk vim build-essential gdb
@@ -43,6 +43,7 @@ elif [ $# -eq 0 ]; then
   git config --global user.name "${name}"
   git config --global color.ui true
   git config --global core.quotepath false
+  git config --global core.autocrlf input
   git config --global gpg.format ssh
   git config --global commit.gpgsign true
   git config --global user.signingkey "${HOME}/.ssh/id_ed25519.pub"
