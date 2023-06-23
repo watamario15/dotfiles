@@ -70,7 +70,7 @@ elif [ $# -eq 0 ]; then
   if [ "$key" != "n" ]; then
     sudo apt update
     sudo apt install -y git-lfs curl wget zip unzip bzip2 gawk vim build-essential gdb mingw-w64 xsel peco
-    curl -sfL https://www.7-zip.org/a/7z2300-linux-x64.tar.xz | sudo tar Jxfp - -C /usr/local/bin
+    curl -sfL https://www.7-zip.org/a/7z2301-linux-x64.tar.xz | sudo tar Jxfp - -C /usr/local/bin
     sudo curl -fL https://github.com/puhitaku/rcs/raw/master/scripts/fontify -o /usr/local/bin/fontify
     sudo chmod +x /usr/local/bin/fontify
   fi
