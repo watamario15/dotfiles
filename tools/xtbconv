@@ -3,6 +3,7 @@ set -e
 
 DICTDIR=${DICTDIR:-~/Dictionaries}
 PLIST=${PLIST:-~/info-plists}
+WIKIMEDIA_MIRROR=${WIKIMEDIA_MIRROR:-https://dumps.wikimedia.org}
 
 my7z() {
   if which 7z &> /dev/null; then
@@ -18,7 +19,7 @@ my7z() {
 }
 
 if [ $# -ne 3 ] && [ $# -ne 4 ]; then
-  echo "XTBook dictionary convertion helper 2302"
+  echo "XTBook dictionary convertion helper 2308"
   echo "This script obtains a MediaWiki dump, converts it to XTBook format, and create a 7z archive for uploading."
   echo
   echo "Usage: $0 <source> <wiki name> <date> [split size]"
@@ -46,10 +47,10 @@ cd "${DICTDIR}"
 if [ "$1" = "wikimedia" ]; then
   # Asserts that a dump exists as pipe doesn't exit with error even when it failed to download.
   # I: Get header only, s: Suppress progress output, S: Show errors, f: Fail on error, L: Track redirect.
-  curl -IsSfL "https://dumps.wikimedia.org/$2/$3/$2-$3-pages-articles.xml.bz2"
+  curl -IsSfL "$WIKIMEDIA_MIRROR/$2/$3/$2-$3-pages-articles.xml.bz2"
 
   echo "Downloading and extracting an XML dump, and running MkXTBWikiplexus..."
-  curl -sSfL "https://dumps.wikimedia.org/$2/$3/$2-$3-pages-articles.xml.bz2" \
+  curl -sSfL "$WIKIMEDIA_MIRROR/$2/$3/$2-$3-pages-articles.xml.bz2" \
     | bunzip2 \
     | MkXTBWikiplexus-bin -o "$2-$3.xtbdict" -s 2> /dev/null \
     | MkRax-bin -o Articles.db.rax
