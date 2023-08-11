@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>XTBDictionaryIdentifier</key>
-	<string>io.github.watamario15.JapaneseWikiquote</string>
+	<string>io.github.watamario15.EnglishWikinews</string>
 	<key>XTBDictionaryScheme</key>
-	<string>jawikiquote</string>
+	<string>enwikinews</string>
 	<key>XTBDictionaryTypeIdentifier</key>
 	<string>com.nexhawks.XTBook.Wikiplexus</string>
 	<key>XTBWikiplexusArticlesFile</key>
@@ -17,8 +17,8 @@
 	<key>XTBWikiplexusSearchFile</key>
 	<string>Search</string>
 	<key>XTBWikiplexusSchemeForImages</key>
-	<string>jawikiquoteimg</string>
+	<string>enwikinewsimg</string>
 	<key>XTBDictionaryDisplayName</key>
-	<string>Japanese Wikiquote</string>
+	<string>English Wikinews</string>
 </dict>
 </plist>

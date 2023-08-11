@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
   <key>XTBDictionaryIdentifier</key>
-  <string>io.github.watamario15.BrainWikiImages</string>
+  <string>io.github.watamario15.EnglishWikipediaImages</string>
   <key>XTBDictionaryScheme</key>
-  <string>jabrainimg</string>
+  <string>enwikiimg</string>
   <key>XTBDictionaryTypeIdentifier</key>
   <string>com.nexhawks.XTBook.ImageComplex</string>
   <key>XTBImageComplexImagesFile</key>
   <string>Images</string>
   <key>XTBDictionaryDisplayName</key>
-  <string>Brain Wiki Images</string>
+  <string>English Wikipedia Images</string>
 </dict>
 </plist>
