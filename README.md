@@ -25,7 +25,6 @@ Aliases for Python, Git, APT, GCC, and various features including:
 
 ### Tools
 - `tools/cegcc` and `tools/ceg++` to build a Windows CE (Armv5TEJ) app
-- `tools/xtbconv` to convert a MediaWiki into an XTBook dictionary
 
 ## Installation
 ### Ubuntu

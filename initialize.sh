@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -e
-wd=$(cd "$(dirname "$0")"; pwd) # where this dotfiles directory exists
 
 if [ $# -eq 1 ]; then
   if [ "$1" = "caslcomet" ]; then
@@ -34,31 +33,30 @@ deb [trusted=yes] https://max.kellermann.name/debian cegcc_buster-default main" 
 
   elif [ "$1" = "xtbook" ]; then
     echo "Installing packages..."
-    sudo apt install -y mecab-ipadic libmecab2 libkakasi2 imagemagick libmecab-dev libkakasi2-dev libxml2-dev liblzma-dev
+    sudo apt install -y libmecab mecab-ipadic-utf8 libkakasi2 imagemagick
 
     echo "Setting up MkXTBWikiplexus..."
-    cd
-    curl -fL https://github.com/yvt/xtbook/releases/download/v0.2.6/MkXTBWikiplexus-R3.tar.gz | tar zxvf -
-    sed -i -e 's/gets(buf)/scanf("%s",buf)!=EOF/' MkXTBWikiplexus/MkImageComplex/main.cpp
-    sed -i -e 's/-liconv //' MkXTBWikiplexus/build.unix/Makefile
-    cd MkXTBWikiplexus/build.unix
-    make
-    sudo apt remove -y libmecab-dev libkakasi2-dev libxml2-dev liblzma-dev
+    curl -fLO https://github.com/watamario15/MkXTBWikiplexus/releases/download/r3/linux-amd64.zip
+    unzip -oq linux-amd64.zip -d xtbconv
+    sudo mv xtbconv/*-bin xtbconv/xtbconv /usr/local/bin/
+    mv xtbconv/info-plists "${HOME}/"
+    rm -rf xtbconv
 
-    cd "${wd}"
-    sudo cp -p tools/xtbconv /usr/local/bin/
     while true; do
-      read -rp "Your dictionary path: " dict
-      read -rp "Correct (DICTDIR: ${dict:-"<Keep Current>"})? [Y/n] " key
+      read -rp "Dictionary path: " dict
+      read -rp "Wikimedia mirror: " wiki_mirror
+      read -rp "Correct (DICTDIR: ${dict:-"<Keep Current>"}, WIKIMEDIA_MIRROR: ${wiki_mirror:-"<Keep Current>"})? [Y/n] " key
       if [ "$key" != "n" ]; then
         break
       fi
     done
     if [ -n "${dict}" ]; then
-      echo "export DICTDIR=${dict}
-export PATH=$PATH:$HOME/MkXTBWikiplexus/build.unix
-export PLIST=${wd}/tools/info-plists" >> ~/.bash_profile
+      echo "export DICTDIR=${dict}" >> ~/.bash_profile
     fi
+    if [ -n "${wiki_mirror}" ]; then
+      echo "export WIKIMEDIA_MIRROR=${wiki_mirror}" >> ~/.bash_profile
+    fi
+    echo "export PLIST=${HOME}/info-plists" >> ~/.bash_profile
     echo "Done."
 
   else
@@ -86,6 +84,7 @@ elif [ $# -eq 0 ]; then
   cp .gitconfig ~/
   git config --global user.email "${email}"
   git config --global user.name "${name}"
+  git config --global init.defaultBranch main
   git config --global color.ui true
   git config --global core.quotepath false
   git config --global core.autocrlf input

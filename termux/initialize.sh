@@ -41,6 +41,7 @@ elif [ $# -eq 0 ]; then
   cp .gitconfig ~/
   git config --global user.email "${email}"
   git config --global user.name "${name}"
+  git config --global init.defaultBranch main
   git config --global color.ui true
   git config --global core.quotepath false
   git config --global core.autocrlf input
