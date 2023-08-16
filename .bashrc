@@ -26,16 +26,17 @@ else
   colorize="--color=auto"
 fi
 
-get_status() {
-  exitcode=$?
-  if [ $exitcode -ne 0 ]; then
-    echo -e "\033[01;31m$exitcode\033[00m"
+get_status_color() {
+  if [ $1 -eq 0 ]; then
+    echo -e "\033[01;36m"
   else
-    echo -e "\033[01;36m$exitcode\033[00m"
+    echo -e "\033[01;31m"
   fi
+  
+  return $1
 }
 
-PS1='$(get_status) \e[01;32m\h\e[00m:\e[01;34m\W\e[00m$ '
+PS1='\[$(get_status_color $?)\]$?\[\033[00m\] \[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$ '
 
 # enable color support of ls and also add handy aliases
 alias ls='ls ${colorize}'
@@ -50,11 +51,24 @@ alias egrep='egrep ${colorize}'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+
+alias editrc='nano -w ~/.bashrc'
+alias applyrc='source ~/.bashrc'
+
+alias pwdc='pwd | tr -d "\n" | xsel -ib'
+alias copy='xsel -ip && xsel -op | xsel -ib'
+alias hist='history | peco'
+
 alias py='python'
 alias ipy='ipython'
+
 alias ga='git add'
 alias gd='git diff'
 alias gr='git rebase'
@@ -67,36 +81,57 @@ alias gf='git fetch'
 alias gc='git commit'
 alias gm='git merge'
 alias gt='git log --graph --all --format="%as %C(cyan bold)%an%Creset %C(yellow)%h%Creset %C(green reverse)%d%Creset %s"'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias apti='sudo apt install -y'
-alias aptr='sudo apt remove -y'
-alias apta='sudo apt autoremove -y'
-alias aptu='sudo apt update && sudo apt dist-upgrade -y'
-alias aptf='sudo apt --fix-broken install -y'
-alias apts='apt search'
-alias aptif='apt info'
-alias spstop='sudo /opt/sophos-av/bin/savdctl disable'
-alias spstart='sudo /opt/sophos-av/bin/savdctl enable'
-alias spup='sudo /opt/sophos-av/bin/savupdate'
-alias editrc='nano -w ~/.bashrc'
-alias applyrc='source ~/.bashrc'
-alias pwdc='pwd | tr -d "\n" | xsel -ib'
-alias copy='xsel -ip && xsel -op | xsel -ib'
-alias hist='history | peco'
-alias ng++='g++ -Wall -Wextra -O3 -std=gnu++2a -static -s -lm'
-alias ngcc='gcc -Wall -Wextra -O3 -std=gnu2x -static -s -lm'
-alias mg++='g++-13 -Wall -Wextra -O3 -std=gnu++23 -lm'
-alias mgcc='gcc-13 -Wall -Wextra -O3 -std=gnu2x -lm'
-alias mclang++='clang++ -Wall -Wextra -O3 -std=gnu++2b -arch x86_64 -arch arm64 -lm'
-alias mclang='clang -Wall -Wextra -O3 -std=gnu2x -arch x86_64 -arch arm64 -lm'
-alias wceg++='arm-mingw32ce-g++ -Wall -Wextra -O3 -std=gnu++2a -march=armv5tej -mcpu=arm926ej-s -static -s -lcommctrl -lcommdlg -lmmtimer -lm'
-alias wcegcc='arm-mingw32ce-gcc -Wall -Wextra -O3 -std=gnu2x -march=armv5tej -mcpu=arm926ej-s -static -s -lcommctrl -lcommdlg -lmmtimer -lm'
+
 alias w32g++='i686-w64-mingw32-g++ -Wall -Wextra -O3 -std=gnu++2a -static -s -lm'
 alias w32gcc='i686-w64-mingw32-gcc -Wall -Wextra -O3 -std=gnu2x -static -s -lm'
 alias w64g++='x86_64-w64-mingw32-g++ -Wall -Wextra -O3 -std=gnu++2a -static -s -lm'
 alias w64gcc='x86_64-w64-mingw32-gcc -Wall -Wextra -O3 -std=gnu2x -static -s -lm'
+
+if [ "$(uname)" == "Darwin" ]; then
+  alias ng++='g++-{1..100} -Wall -Wextra -O3 -std=gnu++23 -lm'
+  alias ngcc='gcc-{1..100} -Wall -Wextra -O3 -std=gnu2x -lm'
+  alias nclang++='clang++ -Wall -Wextra -O3 -std=gnu++2b -arch x86_64 -arch arm64 -lm'
+  alias nclang='clang -Wall -Wextra -O3 -std=gnu2x -arch x86_64 -arch arm64 -lm'
+
+  if which brew &> /dev/null; then
+    alias pkgi='brew install'
+    alias pkgr='brew uninstall'
+    alias pkga='brew autoremove'
+    alias pkgu='brew upgrade'
+    alias pkgs='brew search'
+    alias pkgif='brew info'
+  fi
+else 
+  alias ng++='g++ -Wall -Wextra -O3 -std=gnu++2a -static -s -lm'
+  alias ngcc='gcc -Wall -Wextra -O3 -std=gnu2x -static -s -lm'
+  alias wceg++='arm-mingw32ce-g++ -Wall -Wextra -O3 -std=gnu++2a -march=armv5tej -mcpu=arm926ej-s -static -s -lcommctrl -lcommdlg -lmmtimer -lm'
+  alias wcegcc='arm-mingw32ce-gcc -Wall -Wextra -O3 -std=gnu2x -march=armv5tej -mcpu=arm926ej-s -static -s -lcommctrl -lcommdlg -lmmtimer -lm'
+
+  if which pkg &> /dev/null; then
+    alias pkgi='pkg install -y'
+    alias pkgr='pkg remove -y'
+    alias pkga='apt autoremove -y'
+    alias pkgu='pkg upgrade -y'
+    alias pkgf='pkg install --fix-broken -y'
+    alias pkgs='pkg search'
+    alias pkgif='pkg show'
+  elif which apt &> /dev/null; then
+    alias pkgi='sudo apt install -y'
+    alias pkgr='sudo apt remove -y'
+    alias pkga='sudo apt autoremove -y'
+    alias pkgu='sudo apt update && sudo apt dist-upgrade -y'
+    alias pkgf='sudo apt --fix-broken install -y'
+    alias pkgs='apt search'
+    alias pkgif='apt info'
+  elif which pacman &> /dev/null; then
+    alias pkgi='sudo pacman -S'
+    alias pkgr='sudo pacman -R'
+    alias pkga='sudo pacman -Rs $(pacman -Qdtq)'
+    alias pkgu='sudo pacman -Syyu'
+    alias pkgs='pacman -Ss'
+    alias pkgif='pacman -Si'
+  fi
+fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
