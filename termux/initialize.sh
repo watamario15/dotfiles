@@ -25,7 +25,7 @@ elif [ $# -eq 0 ]; then
   read -rp "Install essential packages? [Y/n]" key
   if [ "$key" != "n" ]; then
   apt update
-  apt install -y git-lfs curl wget zip unzip gawk vim build-essential gdb
+  apt install -y git-lfs curl wget zip unzip gawk vim build-essential gdb which
   curl -fL https://raw.githubusercontent.com/puhitaku/rcs/master/scripts/fontify -o /data/data/com.termux/files/usr/bin/fontify
   chmod +x /data/data/com.termux/files/usr/bin/fontify
   fi

@@ -32,11 +32,65 @@ get_status_color() {
   else
     echo -e "\033[01;31m"
   fi
-  
-  return $1
+
+  return $1 # Preserve the exit code
 }
 
-PS1='\[$(get_status_color $?)\]$?\[\033[00m\] \[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$ '
+prompt_pwd() {
+  case "$PWD" in
+    ${HOME}*) cwd=~${PWD:${#HOME}};;
+    *) cwd=$PWD;;
+  esac
+
+  declare i=$(( ${#cwd} - 1 ))
+  declare cnt=0
+  declare result
+
+  while true; do
+    if [ $i -lt 0 ]; then
+      echo "$cwd"
+      return
+    fi
+
+    if [ "${cwd:$i:1}" = '/' ]; then
+      (( ++cnt ))
+
+      if [ $cnt -ge 2 ]; then
+        if [ $i -gt 0 ]; then
+          result=${cwd:$i}
+          break;
+        fi
+      fi
+    fi
+
+    (( --i ))
+  done
+
+  declare j=0
+  cnt=0
+
+  while true; do
+    if [ $j -ge $i ]; then
+      echo "$cwd"
+      return
+    fi
+
+    if [ "${cwd:$j:1}" = '/' ]; then
+      (( ++cnt ))
+
+      if [ $cnt -ge 2 ]; then
+        if [ $j -lt $i ]; then
+          echo "${cwd:0:(($j + 1))}...$result"
+          return
+        fi
+      fi
+    fi
+
+    (( ++j ))
+  done
+}
+
+PS1='\[$(get_status_color $?)\]$?\[\033[00m\] \[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]$(prompt_pwd)\[\033[00m\]$ '
 
 # enable color support of ls and also add handy aliases
 alias ls='ls ${colorize}'
@@ -101,7 +155,7 @@ if [ "$(uname)" == "Darwin" ]; then
     alias pkgs='brew search'
     alias pkgif='brew info'
   fi
-else 
+else
   alias ng++='g++ -Wall -Wextra -O3 -std=gnu++2a -static -s -lm'
   alias ngcc='gcc -Wall -Wextra -O3 -std=gnu2x -static -s -lm'
   alias wceg++='arm-mingw32ce-g++ -Wall -Wextra -O3 -std=gnu++2a -march=armv5tej -mcpu=arm926ej-s -static -s -lcommctrl -lcommdlg -lmmtimer -lm'
