@@ -141,6 +141,8 @@ alias w32gcc='i686-w64-mingw32-gcc -Wall -Wextra -O3 -std=gnu2x -static -s -lm'
 alias w64g++='x86_64-w64-mingw32-g++ -Wall -Wextra -O3 -std=gnu++2a -static -s -lm'
 alias w64gcc='x86_64-w64-mingw32-gcc -Wall -Wextra -O3 -std=gnu2x -static -s -lm'
 
+alias sa='eval "$(ssh-agent -s)"'
+
 if [ "$(uname)" == "Darwin" ]; then
   alias ng++='g++-{1..100} -Wall -Wextra -O3 -std=gnu++23 -lm'
   alias ngcc='gcc-{1..100} -Wall -Wextra -O3 -std=gnu2x -lm'

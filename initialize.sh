@@ -70,7 +70,8 @@ elif [ $# -eq 0 ]; then
     sudo apt install -y git-lfs curl wget zip unzip bzip2 gawk vim build-essential gdb mingw-w64 xsel peco
     curl -sfL https://www.7-zip.org/a/7z2301-linux-x64.tar.xz | sudo tar Jxfp - -C /usr/local/bin
     sudo curl -fL https://github.com/puhitaku/rcs/raw/master/scripts/fontify -o /usr/local/bin/fontify
-    sudo chmod +x /usr/local/bin/fontify
+    sudo curl -fL https://github.com/slimm609/checksec.sh/raw/main/checksec -o /usr/local/bin/checksec
+    sudo chmod +x /usr/local/bin/fontify /usr/local/bin/checksec
   fi
   echo "Setting up Git..."
   while true; do

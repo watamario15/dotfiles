@@ -27,7 +27,8 @@ elif [ $# -eq 0 ]; then
   apt update
   apt install -y git-lfs curl wget zip unzip gawk vim build-essential gdb which
   curl -fL https://raw.githubusercontent.com/puhitaku/rcs/master/scripts/fontify -o /data/data/com.termux/files/usr/bin/fontify
-  chmod +x /data/data/com.termux/files/usr/bin/fontify
+  curl -fL https://github.com/slimm609/checksec.sh/raw/main/checksec -o /data/data/com.termux/files/usr/bin/checksec
+  chmod +x /data/data/com.termux/files/usr/bin/fontify /data/data/com.termux/files/usr/bin/checksec
   fi
   echo "Setting up Git..."
   while true; do
