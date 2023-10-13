@@ -9,7 +9,14 @@ for f in .??*; do
   [ "$f" = ".gitconfig.local.template" ] && continue
   [ "$f" = ".gitmodules" ] && continue
   [ "$f" = ".gitconfig" ] && continue
+  [[ "$f" = .nanorc* ]] && continue
 
   # Symlink を貼る
   ln -snfv "${PWD}/$f" ~/
 done
+
+if [ "$(uname -o)" = "Android" ]; then
+  ln -snfv "${PWD}/.nanorc-termux" ~/.nanorc
+else
+  ln -snfv "${PWD}/.nanorc" ~/.nanorc
+fi

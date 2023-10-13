@@ -20,7 +20,7 @@ shopt -s checkwinsize
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-if [ "$(uname)" == "Darwin" ]; then
+if [ "$(uname)" = "Darwin" ]; then
   colorize="-G"
 else
   colorize="--color=auto"
@@ -143,27 +143,25 @@ alias w64gcc='x86_64-w64-mingw32-gcc -Wall -Wextra -O3 -std=gnu2x -static -s -lm
 
 alias sa='eval "$(ssh-agent -s)"'
 
-if [ "$(uname)" == "Darwin" ]; then
+if [ "$(uname -o)" = "Darwin" ]; then
   alias ng++='g++-{1..100} -Wall -Wextra -O3 -std=gnu++23 -lm'
   alias ngcc='gcc-{1..100} -Wall -Wextra -O3 -std=gnu2x -lm'
   alias nclang++='clang++ -Wall -Wextra -O3 -std=gnu++2b -arch x86_64 -arch arm64 -lm'
   alias nclang='clang -Wall -Wextra -O3 -std=gnu2x -arch x86_64 -arch arm64 -lm'
 
-  if which brew &> /dev/null; then
-    alias pkgi='brew install'
-    alias pkgr='brew uninstall'
-    alias pkga='brew autoremove'
-    alias pkgu='brew upgrade'
-    alias pkgs='brew search'
-    alias pkgif='brew info'
-  fi
+  alias pkgi='brew install'
+  alias pkgr='brew uninstall'
+  alias pkga='brew autoremove'
+  alias pkgu='brew upgrade'
+  alias pkgs='brew search'
+  alias pkgif='brew info'
 else
   alias ng++='g++ -Wall -Wextra -O3 -std=gnu++2a -static -s -lm'
   alias ngcc='gcc -Wall -Wextra -O3 -std=gnu2x -static -s -lm'
   alias wceg++='arm-mingw32ce-g++ -Wall -Wextra -O3 -std=gnu++2a -march=armv5tej -mcpu=arm926ej-s -static -s -lcommctrl -lcommdlg -lmmtimer -lm'
   alias wcegcc='arm-mingw32ce-gcc -Wall -Wextra -O3 -std=gnu2x -march=armv5tej -mcpu=arm926ej-s -static -s -lcommctrl -lcommdlg -lmmtimer -lm'
 
-  if which pkg &> /dev/null; then
+  if [ "$(uname -o)" = "Android" ]; then
     alias pkgi='pkg install -y'
     alias pkgr='pkg remove -y'
     alias pkga='apt autoremove -y'
@@ -171,7 +169,15 @@ else
     alias pkgf='pkg install --fix-broken -y'
     alias pkgs='pkg search'
     alias pkgif='pkg show'
-  elif which apt &> /dev/null; then
+  elif [ "$(uname -o)" = "FreeBSD" ]; then
+    alias pkgi='sudo pkg install'
+    alias pkgr='sudo pkg remove'
+    alias pkga='sudo pkg autoremove'
+    alias pkgu='sudo pkg upgrade'
+    alias pkgf='sudo pkg check -ad'
+    alias pkgs='pkg search'
+    alias pkgif='pkg info'
+  elif type apt &> /dev/null; then
     alias pkgi='sudo apt install -y'
     alias pkgr='sudo apt remove -y'
     alias pkga='sudo apt autoremove -y'
@@ -179,7 +185,7 @@ else
     alias pkgf='sudo apt --fix-broken install -y'
     alias pkgs='apt search'
     alias pkgif='apt info'
-  elif which pacman &> /dev/null; then
+  elif type pacman &> /dev/null; then
     alias pkgi='sudo pacman -S'
     alias pkgr='sudo pacman -R'
     alias pkga='sudo pacman -Rs $(pacman -Qdtq)'
