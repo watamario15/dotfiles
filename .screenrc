@@ -1,0 +1,11 @@
+defutf8 on
+defencoding utf8
+encoding utf8 utf8
+escape ^Jj
+defscrollback 10000
+termcapinfo xterm* ti@:te@
+altscreen on
+defbce on
+term xterm-256color
+hardstatus alwayslastline "%{= Yk} %-w%{= dd} %n %t* %{-}%+w %= LoadAVG [%l] %Y-%m-%d %02c:%s"
+cjkwidth off
