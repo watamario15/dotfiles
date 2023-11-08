@@ -127,7 +127,7 @@ alias ga='git add'
 alias gd='git diff'
 alias gr='git rebase'
 alias gs='git status'
-alias gp='git push'
+alias gpl='git pull'
 alias gb='git branch'
 alias gsw='git switch'
 alias grs='git restore'
@@ -136,9 +136,31 @@ alias gc='git commit'
 alias gm='git merge'
 alias gt='git log --graph --all --format="%as %C(cyan bold)%an%Creset %C(yellow)%h%Creset %C(green reverse)%d%Creset %s"'
 
+gps() {
+  declare args=()
+  declare isForcePush=0
+
+  while (( $# > 0 )); do
+    case $1 in
+      -f) isForcePush=1;;
+      *) args+=("$1");;
+    esac
+    shift
+  done
+
+  if [ $isForcePush -ne 0 ]; then
+    echo "Invoking 'git push --force-if-includes --force-with-lease ${args[@]}'"
+    read -rp "Are you sure? [y/N]: " key
+    [ "$key" != "y" ] && return 1
+    git push --force-if-includes --force-with-lease "${args[@]}"
+  else
+    git push "${args[@]}"
+  fi
+}
+
 alias w32g++='i686-w64-mingw32-g++ -Wall -Wextra -O3 -std=gnu++2a -static -s -lm'
 alias w32gcc='i686-w64-mingw32-gcc -Wall -Wextra -O3 -std=gnu2x -static -s -lm'
-alias w64g++='x86_64-w64-mingw32-g++ -Wall -Wextra -O3 -std=gnu++2a -static -s -lm'
+alias w64g++='x86_64-w64-mingw32-g++ -Wall -Wextra -O3 -std=gnu++2a -static -s -lm'5
 alias w64gcc='x86_64-w64-mingw32-gcc -Wall -Wextra -O3 -std=gnu2x -static -s -lm'
 
 alias sa='eval "$(ssh-agent -s)"'

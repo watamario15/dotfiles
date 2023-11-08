@@ -119,6 +119,7 @@ elif [ $# -eq 0 ]; then
   git config --global commit.gpgsign true
   git config --global core.quotepath false
   git config --global core.autocrlf input
+  git config --global core.ignorecase false
   git config --global diff.tool vscode
   git config --global difftool.prompt false
   git config --global difftool.vscode.cmd 'code --wait --diff "$LOCAL" "$REMOTE"'
