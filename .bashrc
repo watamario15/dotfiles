@@ -171,10 +171,10 @@ if [ "$(uname -o)" = "Darwin" ]; then
   alias nclang++='clang++ -Wall -Wextra -O3 -std=gnu++2b -arch x86_64 -arch arm64 -lm'
   alias nclang='clang -Wall -Wextra -O3 -std=gnu2x -arch x86_64 -arch arm64 -lm'
 
-  alias pkgi='brew install'
+  alias pkgi='brew install --no-quarantine'
   alias pkgr='brew uninstall'
   alias pkga='brew autoremove'
-  alias pkgu='brew upgrade'
+  alias pkgu='brew upgrade --no-quarantine'
   alias pkgs='brew search'
   alias pkgif='brew info'
 else
