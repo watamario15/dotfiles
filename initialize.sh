@@ -23,18 +23,17 @@ if [ $# -eq 1 ]; then
       echo "Done."
     fi
 
-  elif [ -f /etc/debian_version ] && [ "$(uname -m)" = "x86_64" ] && [ "$1" = "brain" ]; then
-    if ! grep -Fq cegcc_buster-default /etc/apt/sources.list; then
-      echo "Registering the repository of CeGCC..."
-      sudo sh -c 'echo "
-deb [trusted=yes] https://max.kellermann.name/debian cegcc_buster-default main" >> /etc/apt/sources.list'
-    fi
+  elif [ -f /etc/debian_version ] && [ "$1" = "brain" ]; then
+    echo "Installing CeGCC and convenience scripts..."
+    curl -fLO "https://github.com/brain-hackers/cegcc-build/releases/download/2022-10-26-225811/cegcc-$(uname -m)-2022-10-26-225811.zip"
+    sudo rm -rf /opt/cegcc
+    sudo unzip -oq "cegcc-$(uname -m)-2022-10-26-225811.zip" -d /opt
+    sudo rm -f "cegcc-$(uname -m)-2022-10-26-225811.zip"
+    
     sudo cp -p tools/cegcc "/usr/local/bin/"
     sudo cp -p tools/ceg++ "/usr/local/bin/"
-    echo "Installing packages for SHARP Brain development..."
-    sudo apt update
-    sudo apt install -y gcc-arm-mingw32ce qemu-user-static
 
+    echo "Note: CeGCC has been installed to /opt/cegcc as 'arm-mingw32ce-gcc-*'. You may want to configure the PATH environmental variable to include '/opt/cegcc/bin'."
     echo "Done."
 
   elif [ -f /etc/debian_version ] && [ "$(uname -m)" = "x86_64" ] && [ "$1" = "xtbook" ]; then
@@ -76,7 +75,7 @@ elif [ $# -eq 0 ]; then
     if [ "$(uname -o)" = "Android" ]; then
       apt update
       apt install -y git-lfs curl wget zip unzip p7zip gawk vim build-essential gdb which
-      curl -fL https://raw.githubusercontent.com/puhitaku/rcs/master/scripts/fontify -o "$PREFIX/bin/fontify"
+      curl -fL https://github.com/puhitaku/rcs/raw/master/scripts/fontify -o "$PREFIX/bin/fontify"
       curl -fL https://github.com/slimm609/checksec.sh/raw/main/checksec -o "$PREFIX/bin/checksec"
       chmod +x "$PREFIX/bin/fontify" "$PREFIX/bin/checksec"
     else
@@ -94,10 +93,10 @@ elif [ $# -eq 0 ]; then
         esac
 
         if [ -n "$arch_7z" ]; then
-          curl -sfL "https://www.7-zip.org/a/7z2301-linux-${arch_7z}.tar.xz" | sudo tar Jxfp - -C "/usr/local/bin"
+          curl -sfL "https://www.7-zip.org/a/7z2403-linux-${arch_7z}.tar.xz" | sudo tar Jxfp - -C "/usr/local/bin"
         fi
       elif [ "$(uname -o)" = "Darwin" ]; then
-        curl -sfL https://www.7-zip.org/a/7z2301-mac.tar.xz | sudo tar Jxfp - -C "/usr/local/bin"
+        curl -sfL https://www.7-zip.org/a/7z2403-mac.tar.xz | sudo tar Jxfp - -C "/usr/local/bin"
       fi
 
       sudo curl -fL https://github.com/puhitaku/rcs/raw/master/scripts/fontify -o "/usr/local/bin/fontify"
