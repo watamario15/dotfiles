@@ -93,10 +93,10 @@ elif [ $# -eq 0 ]; then
         esac
 
         if [ -n "$arch_7z" ]; then
-          curl -sfL "https://www.7-zip.org/a/7z2406-linux-${arch_7z}.tar.xz" | sudo tar Jxfp - -C "/usr/local/bin"
+          curl -sfL "https://www.7-zip.org/a/7z2407-linux-${arch_7z}.tar.xz" | sudo tar Jxfp - -C "/usr/local/bin"
         fi
       elif [ "$(uname -o)" = "Darwin" ]; then
-        curl -sfL https://www.7-zip.org/a/7z2406-mac.tar.xz | sudo tar Jxfp - -C "/usr/local/bin"
+        curl -sfL https://www.7-zip.org/a/7z2407-mac.tar.xz | sudo tar Jxfp - -C "/usr/local/bin"
       fi
 
       sudo curl -fL https://github.com/puhitaku/rcs/raw/master/scripts/fontify -o "/usr/local/bin/fontify"
