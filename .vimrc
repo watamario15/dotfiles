@@ -11,6 +11,8 @@ set noswapfile
 set hidden
 " Beep 音を無効化
 set belloff=all
+" Fix the color theme to dark mode
+set background=dark
 
 
 " 見た目系

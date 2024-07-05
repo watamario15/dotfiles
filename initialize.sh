@@ -41,7 +41,7 @@ if [ $# -eq 1 ]; then
     sudo apt install -y libmecab mecab-ipadic-utf8 libkakasi2 imagemagick
 
     echo "Setting up MkXTBWikiplexus..."
-    curl -fLO https://github.com/watamario15/MkXTBWikiplexus/releases/download/r3/linux-amd64.zip
+    curl -fLO https://github.com/watamario15/MkXTBWikiplexus/releases/latest/download/linux-amd64.zip
     unzip -oq linux-amd64.zip -d xtbconv
     sudo mv xtbconv/*-bin xtbconv/xtbconv "/usr/local/bin/"
     mv xtbconv/info-plists "${HOME}/"
