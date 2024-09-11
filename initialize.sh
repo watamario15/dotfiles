@@ -29,7 +29,7 @@ if [ $# -eq 1 ]; then
     sudo rm -rf /opt/cegcc
     sudo unzip -oq "cegcc-$(uname -m)-2022-10-26-225811.zip" -d /opt
     sudo rm -f "cegcc-$(uname -m)-2022-10-26-225811.zip"
-    
+
     sudo cp -p tools/cegcc "/usr/local/bin/"
     sudo cp -p tools/ceg++ "/usr/local/bin/"
 
@@ -74,7 +74,7 @@ elif [ $# -eq 0 ]; then
   if [ "$key" != "n" ]; then
     if [ "$(uname -o)" = "Android" ]; then
       apt update
-      apt install -y git-lfs curl wget zip unzip p7zip gawk vim build-essential gdb which
+      apt install -y git-lfs curl wget zip unzip 7zip gawk vim build-essential gdb which
       curl -fL https://github.com/puhitaku/rcs/raw/master/scripts/fontify -o "$PREFIX/bin/fontify"
       curl -fL https://github.com/slimm609/checksec.sh/raw/main/checksec -o "$PREFIX/bin/checksec"
       chmod +x "$PREFIX/bin/fontify" "$PREFIX/bin/checksec"
@@ -82,21 +82,8 @@ elif [ $# -eq 0 ]; then
       if [ "$(uname)" = "Linux" ]; then
         if [ -f /etc/debian_version ]; then
           sudo apt update
-          sudo apt install -y git-lfs curl wget zip unzip bzip2 gawk vim build-essential gdb mingw-w64 xsel peco
+          sudo apt install -y git-lfs curl wget zip unzip 7zip gawk vim build-essential gdb mingw-w64 xsel peco
         fi
-        
-        case $(uname -m) in
-          x86) arch_7z=x86;;
-          x86_64) arch_7z=x64;;
-          arm64* | aarch64* | armv8* | armv9*) arch_7z=arm64;;
-          arm*) arch_7z=arm;;
-        esac
-
-        if [ -n "$arch_7z" ]; then
-          curl -sfL "https://www.7-zip.org/a/7z2407-linux-${arch_7z}.tar.xz" | sudo tar Jxfp - -C "/usr/local/bin"
-        fi
-      elif [ "$(uname -o)" = "Darwin" ]; then
-        curl -sfL https://www.7-zip.org/a/7z2407-mac.tar.xz | sudo tar Jxfp - -C "/usr/local/bin"
       fi
 
       sudo curl -fL https://github.com/puhitaku/rcs/raw/master/scripts/fontify -o "/usr/local/bin/fontify"
@@ -104,7 +91,7 @@ elif [ $# -eq 0 ]; then
       sudo chmod +x "/usr/local/bin/fontify" "/usr/local/bin/checksec"
     fi
   fi
-  
+
   echo "Setting up Git..."
   while true; do
     read -rp "Your email address: " email

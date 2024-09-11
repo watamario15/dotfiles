@@ -1,8 +1,14 @@
 " 非対応バージョンでは読み込みを中止
 if !1 | finish | endif
 " setting
-"文字コードをUFT-8に設定
-set fenc=utf-8
+"内部文字コードをUTF-8に設定
+set encoding=utf-8
+"新規ファイルの文字コードをUTF-8に設定
+set fileencoding=utf-8
+"文字コード自動判定精度を向上させる
+set fileencodings=iso-2022-jp,ucs-bom,sjis,utf-8,euc-jp,cp932,default,latin1
+"曖昧幅文字は全角
+set ambiwidth=double
 " バックアップファイルを作らない
 set nobackup
 " スワップファイルを作らない
@@ -36,7 +42,7 @@ syntax enable
 " 不可視文字を可視化(タブが「▸-」と表示される)
 set list listchars=tab:\▸\-
 " Tab文字を半角スペースにする
-set expandtab
+"set expandtab
 " 行頭以外のTab文字の表示幅（スペースいくつ分）
 set tabstop=2
 " 行頭でのTab文字の表示幅
