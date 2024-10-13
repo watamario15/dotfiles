@@ -1,6 +1,6 @@
 # Dot files
 
-My dotfiles for Linux, [Termux](https://termux.com/), [Brainux](https://brainux.org/), [macOS](https://www.apple.com/macos), and [FreeBSD](https://www.freebsd.org/). Most featured for Ubuntu.
+My dotfiles for Linux, [Termux](https://termux.com/), [Brainux](https://brainux.org/), [macOS](https://www.apple.com/macos), and [FreeBSD](https://www.freebsd.org/). Most featured for Ubuntu and Fedora.
 
 ## Key features
 
@@ -53,8 +53,8 @@ cd dotfiles
 Running `./initialize.sh` will set up git and install some basic packages. You can also set up:
 
 - CASLII/COMETII simulator (Osaka University) with `./initialize.sh caslcomet`
-- SHARP Brain development packages with `./initialize.sh brain` (Currently AMD64 Ubuntu only)
-- MediaWiki to XTBook conversion environment with `./initialize.sh xtbook` (Currently AMD64 Ubuntu only)
+- SHARP Brain development packages with `./initialize.sh brain` (Currently AMD64/Arm64 Linux only)
+- MediaWiki to XTBook conversion environment with `./initialize.sh xtbook` (Currently AMD64/Arm64 Debian/Fedora-based only)
 
 ### Brainux
 

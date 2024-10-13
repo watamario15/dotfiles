@@ -27,13 +27,13 @@ else
 fi
 
 get_status_color() {
-  if [ $1 -eq 0 ]; then
+  if [ "$1" -eq 0 ]; then
     echo -e "\033[01;36m"
   else
     echo -e "\033[01;31m"
   fi
 
-  return $1 # Preserve the exit code
+  return "$1" # Preserve the exit code
 }
 
 prompt_pwd() {
@@ -149,7 +149,7 @@ gps() {
   done
 
   if [ $isForcePush -ne 0 ]; then
-    echo "Invoking 'git push --force-if-includes --force-with-lease ${args[@]}'"
+    echo "Invoking 'git push --force-if-includes --force-with-lease " "${args[@]}" "'"
     read -rp "Are you sure? [y/N]: " key
     [ "$key" != "y" ] && return 1
     git push --force-if-includes --force-with-lease "${args[@]}"
@@ -160,7 +160,7 @@ gps() {
 
 alias w32g++='i686-w64-mingw32-g++ -Wall -Wextra -O3 -std=gnu++2a -static -s -lm'
 alias w32gcc='i686-w64-mingw32-gcc -Wall -Wextra -O3 -std=gnu2x -static -s -lm'
-alias w64g++='x86_64-w64-mingw32-g++ -Wall -Wextra -O3 -std=gnu++2a -static -s -lm'5
+alias w64g++='x86_64-w64-mingw32-g++ -Wall -Wextra -O3 -std=gnu++2a -static -s -lm'
 alias w64gcc='x86_64-w64-mingw32-gcc -Wall -Wextra -O3 -std=gnu2x -static -s -lm'
 
 alias sa='eval "$(ssh-agent -s)"'
@@ -199,6 +199,13 @@ else
     alias pkgf='sudo pkg check -ad'
     alias pkgs='pkg search'
     alias pkgif='pkg info'
+  elif type dnf &> /dev/null; then
+    alias pkgi='sudo dnf install -y'
+    alias pkgr='sudo dnf remove -y'
+    alias pkga='sudo dnf autoremove -y'
+    alias pkgu='sudo dnf upgrade -y'
+    alias pkgs='dnf search'
+    alias pkgif='dnf info'
   elif type apt &> /dev/null; then
     alias pkgi='sudo apt install -y'
     alias pkgr='sudo apt remove -y'
