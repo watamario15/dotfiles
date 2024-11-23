@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 if [ $# -eq 1 ]; then
   if [ "$1" = "caslcomet" ]; then
@@ -87,8 +87,7 @@ elif [ $# -eq 0 ]; then
       apt update
       apt install -y git-lfs curl wget zip unzip 7zip gawk vim build-essential gdb which
       curl -fL https://github.com/puhitaku/rcs/raw/master/scripts/fontify -o "$PREFIX/bin/fontify"
-      curl -fL https://github.com/slimm609/checksec.sh/raw/main/checksec -o "$PREFIX/bin/checksec"
-      chmod +x "$PREFIX/bin/fontify" "$PREFIX/bin/checksec"
+      chmod +x "$PREFIX/bin/fontify"
     else
       if [ "$(uname)" = "Linux" ]; then
         if [ -f /etc/debian_version ]; then
@@ -104,7 +103,7 @@ elif [ $# -eq 0 ]; then
             arm*) arch_7z=arm;;
           esac
           if [ -n "$arch_7z" ]; then
-            curl -sfL "https://www.7-zip.org/a/7z2408-linux-${arch_7z}.tar.xz" | sudo tar Jxf - -C /usr/local/bin
+            curl -sfL "https://www.7-zip.org/a/7z2409-linux-${arch_7z}.tar.xz" | sudo tar Jxf - -C /usr/local/bin
           fi
           
           case $(uname -m) in
@@ -119,8 +118,7 @@ elif [ $# -eq 0 ]; then
       fi
 
       sudo curl -fL https://github.com/puhitaku/rcs/raw/master/scripts/fontify -o /usr/local/bin/fontify
-      sudo curl -fL https://github.com/slimm609/checksec.sh/raw/main/checksec -o /usr/local/bin/checksec
-      sudo chmod +x /usr/local/bin/fontify /usr/local/bin/checksec
+      sudo chmod +x /usr/local/bin/fontify
     fi
   fi
 

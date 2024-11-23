@@ -1,30 +1,9 @@
-# If not running interactively, don't do anything
-case $- in
-  *i*) ;;
-  *) return;;
-esac
-
-# history
+export BASH_SILENCE_DEPRECATION_WARNING=1
 HISTCONTROL=ignoreboth
-HISTSIZE=1000
-HISTFILESIZE=2000
-shopt -s histappend # append to the history file, don't overwrite it
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
+HISTSIZE=10000
+HISTFILESIZE=$HISTSIZE
+shopt -s histappend
 shopt -s checkwinsize
-
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# colored GCC warnings and errors
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-if [ "$(uname)" = "Darwin" ]; then
-  colorize="-G"
-else
-  colorize="--color=auto"
-fi
 
 get_status_color() {
   if [ "$1" -eq 0 ]; then
@@ -32,8 +11,7 @@ get_status_color() {
   else
     echo -e "\033[01;31m"
   fi
-
-  return "$1" # Preserve the exit code
+  return "$1"  # Preserve the exit code
 }
 
 prompt_pwd() {
@@ -55,7 +33,7 @@ prompt_pwd() {
     if [ "${cwd:$i:1}" = '/' ]; then
       (( ++cnt ))
 
-      if [ $cnt -ge 2 ]; then
+      if [ $cnt -ge 3 ]; then  # Tail directories count
         if [ $i -gt 0 ]; then
           result=${cwd:$i}
           break;
@@ -78,7 +56,7 @@ prompt_pwd() {
     if [ "${cwd:$j:1}" = '/' ]; then
       (( ++cnt ))
 
-      if [ $cnt -ge 2 ]; then
+      if [ $cnt -ge 3 ]; then  # Head directories count
         if [ $j -lt $i ]; then
           echo "${cwd:0:(($j + 1))}...$result"
           return
@@ -90,19 +68,20 @@ prompt_pwd() {
   done
 }
 
-PS1='\[$(get_status_color $?)\]$?\[\033[00m\] \[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]$(prompt_pwd)\[\033[00m\]$ '
+PS1='\n\[$(get_status_color $?)\]$?\[\033[00m\] \[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]$(prompt_pwd)\[\033[00m\]\$ '
 
 # enable color support of ls and also add handy aliases
+if [ "$(uname)" = "Darwin" ]; then
+  colorize="-G"
+else
+  colorize="--color=auto"
+fi
 alias ls='ls ${colorize}'
 alias dir='dir ${colorize}'
 alias vdir='vdir ${colorize}'
 alias grep='grep ${colorize}'
 alias fgrep='fgrep ${colorize}'
 alias egrep='egrep ${colorize}'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
 alias ..='cd ..'
@@ -113,12 +92,13 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-alias editrc='nano -w ~/.bashrc'
-alias applyrc='source ~/.bashrc'
+alias editrc='nano -w ~/rc.sh'
+alias applyrc='. ~/.bashrc'
 
 alias pwdc='pwd | tr -d "\n" | xsel -ib'
 alias copy='xsel -ip && xsel -op | xsel -ib'
 alias hist='history | peco'
+alias sa='eval "$(ssh-agent -s)"'
 
 alias py='python'
 alias ipy='ipython'
@@ -163,18 +143,16 @@ alias w32gcc='i686-w64-mingw32-gcc -Wall -Wextra -O3 -std=gnu2x -static -s -lm'
 alias w64g++='x86_64-w64-mingw32-g++ -Wall -Wextra -O3 -std=gnu++2a -static -s -lm'
 alias w64gcc='x86_64-w64-mingw32-gcc -Wall -Wextra -O3 -std=gnu2x -static -s -lm'
 
-alias sa='eval "$(ssh-agent -s)"'
-
 if [ "$(uname -o)" = "Darwin" ]; then
   alias ng++='g++-{1..100} -Wall -Wextra -O3 -std=gnu++23 -lm'
   alias ngcc='gcc-{1..100} -Wall -Wextra -O3 -std=gnu2x -lm'
   alias nclang++='clang++ -Wall -Wextra -O3 -std=gnu++2b -arch x86_64 -arch arm64 -lm'
   alias nclang='clang -Wall -Wextra -O3 -std=gnu2x -arch x86_64 -arch arm64 -lm'
 
-  alias pkgi='brew install --no-quarantine'
+  alias pkgi='brew install'
   alias pkgr='brew uninstall'
   alias pkga='brew autoremove'
-  alias pkgu='brew upgrade --no-quarantine'
+  alias pkgu='brew update && brew upgrade'
   alias pkgs='brew search'
   alias pkgif='brew info'
 else
@@ -184,11 +162,11 @@ else
   alias wcegcc='arm-mingw32ce-gcc -Wall -Wextra -O3 -std=gnu2x -march=armv5tej -mcpu=arm926ej-s -static -s -lcommctrl -lcommdlg -lmmtimer -lm'
 
   if [ "$(uname -o)" = "Android" ]; then
-    alias pkgi='pkg install -y'
-    alias pkgr='pkg remove -y'
-    alias pkga='apt autoremove -y'
-    alias pkgu='pkg upgrade -y'
-    alias pkgf='pkg install --fix-broken -y'
+    alias pkgi='pkg install'
+    alias pkgr='pkg remove'
+    alias pkga='apt autoremove'
+    alias pkgu='pkg upgrade'
+    alias pkgf='pkg install --fix-broken'
     alias pkgs='pkg search'
     alias pkgif='pkg show'
   elif [ "$(uname -o)" = "FreeBSD" ]; then
@@ -200,20 +178,20 @@ else
     alias pkgs='pkg search'
     alias pkgif='pkg info'
   elif type dnf &> /dev/null; then
-    alias pkgi='sudo dnf install -y'
-    alias pkgr='sudo dnf remove -y'
-    alias pkga='sudo dnf autoremove -y'
-    alias pkgu='sudo dnf upgrade -y'
+    alias pkgi='sudo dnf install'
+    alias pkgr='sudo dnf remove'
+    alias pkga='sudo dnf autoremove'
+    alias pkgu='sudo dnf upgrade'
     alias pkgs='dnf search'
     alias pkgif='dnf info'
   elif type apt &> /dev/null; then
-    alias pkgi='sudo apt install -y'
-    alias pkgr='sudo apt remove -y'
-    alias pkga='sudo apt autoremove -y'
-    alias pkgu='sudo apt update && sudo apt dist-upgrade -y'
-    alias pkgf='sudo apt --fix-broken install -y'
+    alias pkgi='sudo apt install'
+    alias pkgr='sudo apt remove'
+    alias pkga='sudo apt autoremove'
+    alias pkgu='sudo apt update && sudo apt dist-upgrade'
+    alias pkgf='sudo apt --fix-broken install'
     alias pkgs='apt search'
-    alias pkgif='apt info'
+    alias pkgif='apt show'
   elif type pacman &> /dev/null; then
     alias pkgi='sudo pacman -S'
     alias pkgr='sudo pacman -R'
@@ -224,13 +202,15 @@ else
   fi
 fi
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
+# make transparent PNGs opaque
+opaque() {
+  if which magick &> /dev/null; then
+    MAGICK=magick
+  elif which convert &> /dev/null; then
+    MAGICK=convert
+  else
+    echo "Error: ImageMagick not found." >&2
+    return 127
   fi
-fi
+  $MAGICK "$1" \( +clone -alpha opaque -fill white -colorize 100% \) +swap -geometry +0+0 -compose Over -composite -alpha off "$2"
+}

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 if ! [ -e "/swapfile" ]; then
   sudo dd if=/dev/zero of=/swapfile bs=1M count="${1:-1024}"
