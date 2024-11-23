@@ -213,7 +213,7 @@ else
     alias pkgu='sudo apt update && sudo apt dist-upgrade -y'
     alias pkgf='sudo apt --fix-broken install -y'
     alias pkgs='apt search'
-    alias pkgif='apt info'
+    alias pkgif='apt show'
   elif type pacman &> /dev/null; then
     alias pkgi='sudo pacman -S'
     alias pkgr='sudo pacman -R'
@@ -223,6 +223,11 @@ else
     alias pkgif='pacman -Si'
   fi
 fi
+
+# Make transparent PNGs opaque.
+opaque() {
+  magick "$1" \( +clone -alpha opaque -fill white -colorize 100% \) +swap -geometry +0+0 -compose Over -composite -alpha off "$2"
+}
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
