@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 if [ $# -eq 1 ]; then
   if [ "$1" = "caslcomet" ]; then
@@ -104,7 +104,7 @@ elif [ $# -eq 0 ]; then
             arm*) arch_7z=arm;;
           esac
           if [ -n "$arch_7z" ]; then
-            curl -sfL "https://www.7-zip.org/a/7z2408-linux-${arch_7z}.tar.xz" | sudo tar Jxf - -C /usr/local/bin
+            curl -sfL "https://www.7-zip.org/a/7z2409-linux-${arch_7z}.tar.xz" | sudo tar Jxf - -C /usr/local/bin
           fi
           
           case $(uname -m) in

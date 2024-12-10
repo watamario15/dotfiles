@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-
-# 未定義な変数があったら途中で終了する
-set -u
+set -euo pipefail
 
 # 2 文字以上の dotfiles に対して
 for f in .??*; do

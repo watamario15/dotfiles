@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # December 4, 2021, brain-hackers, CC-BY-SA 4.0, https://wiki.brainux.org/tips/linux/tips-usb-ethernet-gadget/
+set -euo pipefail
 
 g=/sys/kernel/config/usb_gadget/eth
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 if [ $# -eq 0 ]; then
   echo "Error: Specify at least one C++ source file to compile."

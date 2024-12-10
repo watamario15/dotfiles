@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 echo "Make sure that you've manually expanded the rootfs partition before running this script!"
 
