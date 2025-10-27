@@ -174,7 +174,7 @@ if [ "$(uname -o)" = "Darwin" ]; then
   alias pkgi='brew install --no-quarantine'
   alias pkgr='brew uninstall'
   alias pkga='brew autoremove'
-  alias pkgu='brew upgrade --no-quarantine'
+  alias pkgu='brew update && brew upgrade --no-quarantine'
   alias pkgs='brew search'
   alias pkgif='brew info'
 else
@@ -239,3 +239,8 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/watamario15/.lmstudio/bin"
+# End of LM Studio CLI section
+
