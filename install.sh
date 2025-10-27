@@ -13,6 +13,8 @@ for f in .??*; do
   ln -snfv "${PWD}/$f" ~/
 done
 
+ln -snfv "${PWD}/rc.sh" ~/
+
 if [ "$(uname -o)" = "Android" ]; then
   ln -snfv "${PWD}/.nanorc-termux" ~/.nanorc
 else
