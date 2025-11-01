@@ -92,8 +92,8 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-alias editrc='nano -w ~/.bashrc'
-alias applyrc='source ~/.bashrc'
+alias editrc='nano -w ~/rc.sh'
+alias applyrc='. ~/.bashrc'
 
 alias pwdc='pwd | tr -d "\n" | xsel -ib'
 alias copy='xsel -ip && xsel -op | xsel -ib'
