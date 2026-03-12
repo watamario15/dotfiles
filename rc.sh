@@ -33,7 +33,7 @@ prompt_pwd() {
     if [ "${cwd:$i:1}" = '/' ]; then
       (( ++cnt ))
 
-      if [ $cnt -ge 2 ]; then
+      if [ $cnt -ge 3 ]; then  # Tail directories count
         if [ $i -gt 0 ]; then
           result=${cwd:$i}
           break;
@@ -56,7 +56,7 @@ prompt_pwd() {
     if [ "${cwd:$j:1}" = '/' ]; then
       (( ++cnt ))
 
-      if [ $cnt -ge 2 ]; then
+      if [ $cnt -ge 3 ]; then  # Head directories count
         if [ $j -lt $i ]; then
           echo "${cwd:0:(($j + 1))}...$result"
           return
@@ -68,7 +68,7 @@ prompt_pwd() {
   done
 }
 
-PS1='\[$(get_status_color $?)\]$?\[\033[00m\] \[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]$(prompt_pwd)\[\033[00m\]$ '
+PS1='\n\[$(get_status_color $?)\]$?\[\033[00m\] \[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]$(prompt_pwd)\[\033[00m\]\n\$ '
 
 # enable color support of ls and also add handy aliases
 if [ "$(uname)" = "Darwin" ]; then
@@ -149,10 +149,10 @@ if [ "$(uname -o)" = "Darwin" ]; then
   alias nclang++='clang++ -Wall -Wextra -O3 -std=gnu++2b -arch x86_64 -arch arm64 -lm'
   alias nclang='clang -Wall -Wextra -O3 -std=gnu2x -arch x86_64 -arch arm64 -lm'
 
-  alias pkgi='brew install --no-quarantine'
+  alias pkgi='brew install'
   alias pkgr='brew uninstall'
   alias pkga='brew autoremove'
-  alias pkgu='brew update && brew upgrade --no-quarantine'
+  alias pkgu='brew update && brew upgrade'
   alias pkgs='brew search'
   alias pkgif='brew info'
 else
@@ -212,5 +212,5 @@ opaque() {
     echo "Error: ImageMagick not found." >&2
     return 127
   fi
-  MAGICK "$1" \( +clone -alpha opaque -fill white -colorize 100% \) +swap -geometry +0+0 -compose Over -composite -alpha off "$2"
+  $MAGICK "$1" \( +clone -alpha opaque -fill white -colorize 100% \) +swap -geometry +0+0 -compose Over -composite -alpha off "$2"
 }
