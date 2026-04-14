@@ -68,7 +68,7 @@ prompt_pwd() {
   done
 }
 
-PS1='\n\[$(get_status_color $?)\]$?\[\033[00m\] \[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]$(prompt_pwd)\[\033[00m\]\n\$ '
+PS1='\n\[$(get_status_color $?)\]$?\[\033[00m\] \[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]$(prompt_pwd)\[\033[00m\]\$ '
 
 # enable color support of ls and also add handy aliases
 if [ "$(uname)" = "Darwin" ]; then
