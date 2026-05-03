@@ -2,30 +2,9 @@
 set -euo pipefail
 
 if [ $# -eq 1 ]; then
-  if [ "$1" = "caslcomet" ]; then
-    if type "casl2" &> /dev/null && type "comet2" &> /dev/null; then
-      echo "The CASLII/COMETII simulator is already installed, and nothing has been changed."
-    else
-      echo "Installing the CASLII/COMETII simulator (Osaka University)..."
-      cd
-      curl -fLO https://www-hasegawa.ist.osaka-u.ac.jp/~ykoizumi/lecture/fco/files/casl2-2017-11-16.zip
-      unzip -oq casl2-2017-11-16.zip
-      cd casl2-2017-11-16
-      chmod +x casl2 comet2
-      if [ "$(uname -o)" = "Android" ]; then
-        mv casl2 comet2 "${PREFIX}/local/bin/"
-      else
-        sudo mv casl2 comet2 /usr/local/bin/
-      fi
-      cd ..
-      rm -rf casl2-2017-11-16.zip casl2-2017-11-16
-
-      echo "Done."
-    fi
-
-  elif [ "$(uname)" = "Linux" ] && [ "$1" = "brain" ]; then
+  if [ "$(uname)" = "Linux" ] && [ "$1" = "brain" ]; then
     echo "Installing CeGCC and convenience scripts..."
-    curl -fLO "https://github.com/brain-hackers/cegcc-build/releases/download/2022-10-26-225811/cegcc-$(uname -m)-2022-10-26-225811.zip"
+    curl -fLO "https://github.com/brain-hackers/cegcc-build/releases/download/2026-04-14-154823/cegcc-$(uname -m)-2026-04-14-154823.zip"
     sudo rm -rf /opt/cegcc
     sudo unzip -oq "cegcc-$(uname -m)-2022-10-26-225811.zip" -d /opt
     sudo rm -f "cegcc-$(uname -m)-2022-10-26-225811.zip"
@@ -94,17 +73,7 @@ elif [ $# -eq 0 ]; then
           sudo apt update
           sudo apt install -y git-lfs curl wget zip unzip 7zip gawk vim build-essential gdb mingw-w64 xsel peco
         elif type dnf &> /dev/null; then
-          sudo dnf install -y git-lfs curl wget zip unzip gawk vim gcc-c++ gdb mingw32-gcc-c++ mingw64-gcc-c++ xsel
-
-          case $(uname -m) in
-            x86) arch_7z=x86;;
-            x86_64) arch_7z=x64;;
-            arm64* | aarch64* | armv8* | armv9*) arch_7z=arm64;;
-            arm*) arch_7z=arm;;
-          esac
-          if [ -n "$arch_7z" ]; then
-            curl -sfL "https://www.7-zip.org/a/7z2409-linux-${arch_7z}.tar.xz" | sudo tar Jxf - -C /usr/local/bin
-          fi
+          sudo dnf install -y git-lfs curl wget zip unzip 7zip gawk vim gcc-c++ gdb mingw32-gcc-c++ mingw64-gcc-c++ xsel
           
           case $(uname -m) in
             x86_64) arch_peco=amd64;;

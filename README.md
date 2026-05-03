@@ -6,8 +6,16 @@ My dotfiles for Linux, [Termux](https://termux.com/), [Brainux](https://brainux.
 
 ### Bash
 
+Provided as `rc.sh`, which is meant to be sourced from `.bashrc` as follows:
+
+```sh
+if [ -f ~/rc.sh ]; then
+    . ~/rc.sh
+fi
+```
+
 - Aliases for Python, Git, package managers, and GCC
-- `editrc` and `applyrc` to edit and apply your `~/.bashrc`
+- `editrc` and `applyrc` to edit and apply `rc.sh`/`.bashrc`
 - `pwdc` to copy the current directory path to the clipboard
 - `copy` to copy stdin to the clipboard
 - `hist` to search your command history
@@ -16,7 +24,7 @@ My dotfiles for Linux, [Termux](https://termux.com/), [Brainux](https://brainux.
 
 - 2 spaces for one indent
 - Show a tab as 2 spaces
-- Use the supplied "natural" key bindings
+- Use the supplied *natural* key bindings
 - Enable all syntax definitions
 
 ### Vim
@@ -52,13 +60,9 @@ cd dotfiles
 
 Running `./initialize.sh` will set up git and install some basic packages. You can also set up:
 
-- CASLII/COMETII simulator (Osaka University) with `./initialize.sh caslcomet`
 - SHARP Brain development packages with `./initialize.sh brain` (Currently AMD64/Arm64 Linux only)
 - MediaWiki to XTBook conversion environment with `./initialize.sh xtbook` (Currently AMD64/Arm64 Debian/Fedora-based only)
 
 ### Brainux
 
-You must run Brainux `initialize.sh' on a PC that already has the Brainux partition mounted, and you will need to manually perform some steps described in the script before running it.
-
-- `swap` (Brainux) sets up a swap with a given size (MB), the default is 1024 MB
-- `usbg` (Brainux) sets up the USB gadget
+`brainux/initialize.sh` must be run on a host computer with the Brainux rootfs mounted **AFTER** you manually expand the rootfs partition.

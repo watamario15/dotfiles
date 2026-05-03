@@ -1,8 +1,14 @@
 " 非対応バージョンでは読み込みを中止
 if !1 | finish | endif
 " setting
-"文字コードをUFT-8に設定
-set fenc=utf-8
+"内部文字コードをUTF-8に設定
+set encoding=utf-8
+"新規ファイルの文字コードをUTF-8に設定
+set fileencoding=utf-8
+"文字コード自動判定精度を向上させる
+set fileencodings=iso-2022-jp,ucs-bom,sjis,utf-8,euc-jp,cp932,default,latin1
+"曖昧幅文字は全角
+set ambiwidth=double
 " バックアップファイルを作らない
 set nobackup
 " スワップファイルを作らない
@@ -11,6 +17,8 @@ set noswapfile
 set hidden
 " Beep 音を無効化
 set belloff=all
+" Fix the color theme to dark mode
+set background=dark
 
 
 " 見た目系
@@ -23,7 +31,7 @@ set smartindent
 " 括弧入力時の対応する括弧を表示
 set showmatch
 " Status Line
-set statusline=%F%m%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FMT=%{&ff}]\ [TYPE=%Y]\ %=[CODE=0x%02B]\ [POS=%l,%v]
+" set statusline=%F%m%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FMT=%{&ff}]\ [TYPE=%Y]\ %=[CODE=0x%02B]\ [POS=%l,%v]
 " ステータスラインを常に表示
 set laststatus=2
 " シンタックスハイライトの有効化
@@ -31,8 +39,10 @@ syntax enable
 
 
 " Tab系
+" 不可視文字を可視化(タブが「▸-」と表示される)
+set list listchars=tab:\▸\-
 " Tab文字を半角スペースにする
-set expandtab
+"set expandtab
 " 行頭以外のTab文字の表示幅（スペースいくつ分）
 set tabstop=2
 " 行頭でのTab文字の表示幅
@@ -52,3 +62,18 @@ set wrapscan
 set hlsearch
 " ESC連打でハイライト解除
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
+
+
+" auto reload .vimrc
+augroup source-vimrc
+  autocmd!
+  autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
+  autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
+augroup END
+
+" HTML/XML閉じタグ自動補完
+augroup MyXML
+  autocmd!
+  autocmd Filetype xml inoremap <buffer> </ </<C-x><C-o>
+  autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
+augroup END

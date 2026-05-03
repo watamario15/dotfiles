@@ -3,28 +3,31 @@ set -euo pipefail
 
 echo "Make sure that you've manually expanded the rootfs partition before running this script!"
 
-echo "Remounting the SD with dev enabled..."
-echo "rootfs devices:"
+echo "Remounting the rootfs SD card with dev enabled..."
+echo "== Found rootfs devices =="
 mount | grep rootfs
-read -rp "Enter the SD rootfs device (ex. sdb2): " sd
+read -rp "Target rootfs in device ID (ex. sdb2): " sd
 sudo mount -o remount,dev "/dev/${sd}"
-mount | grep rootfs
-
-read -rp "Enter the SD rootfs full path (without the last slash): " sd
+read -rp "Target rootfs in full path without the trailing slash (ex. /run/media/user/rootfs): " sd
 
 echo "Copying files..."
-sudo cp "$(which casl2)" "$(which comet2)" "$(which fontify)" swap usbg "${sd}/usr/local/bin/"
-cp ../.bashrc ../.nanorc .vimrc .fbtermrc .uim "${sd}/home/user/"
+sudo cp "$(which fontify)" "${sd}/usr/local/bin/"
+cp ../rc.sh ../.nanorc .vimrc .fbtermrc .uim "${sd}/home/user/"
+echo "if [ -f ~/rc.sh ]; then
+    . ~/rc.sh
+fi" >> "${sd}/home/user/.bashrc"
 
-echo "Creating a swap file..."
+echo "Setting up swap..."
 sudo dd if=/dev/zero "of=${sd}/swapfile" bs=1M count=4096
 sudo chmod 0600 "${sd}/swapfile"
 sudo mkswap "${sd}/swapfile"
+sudo tee -a "${sd}/etc/fstab" << EOF
+/swapfile  none   swap    defaults   0 0
+EOF
 
-echo "chroot-ing into the SD rootfs to complete the initialization..."
+echo "Updating installed packages and adding essential packages..."
 sudo chroot "$sd" << EOF
 apt update
-apt dist-upgrade -y
+apt upgrade -y
 apt install gdb zip unzip xsel peco -y
-echo "/swapfile  none   swap    defaults   0 0" >> /etc/fstab
 EOF
