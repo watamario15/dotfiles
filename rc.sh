@@ -202,7 +202,7 @@ else
   fi
 fi
 
-# make transparent PNGs opaque
+# make a transparent image opaque (color, src, dest)
 opaque() {
   if which magick &> /dev/null; then
     MAGICK=magick
@@ -212,5 +212,18 @@ opaque() {
     echo "Error: ImageMagick not found." >&2
     return 127
   fi
-  $MAGICK "$1" \( +clone -alpha opaque -fill white -colorize 100% \) +swap -geometry +0+0 -compose Over -composite -alpha off "$2"
+  $MAGICK "$2" -background "$1" -alpha remove -alpha off "$3"
+}
+
+# make an image round (size, margin, src, dest)
+round() {
+  if which magick &> /dev/null; then
+    MAGICK=magick
+  elif which convert &> /dev/null; then
+    MAGICK=convert
+  else
+    echo "Error: ImageMagick not found." >&2
+    return 127
+  fi
+  $MAGICK -size "$1x$1" xc:none -draw "roundrectangle 0,0 $(($1-1)),$(($1-1)) $2,$2" "$3" -compose src-in -composite "$4"
 }
