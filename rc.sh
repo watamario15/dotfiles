@@ -63,6 +63,7 @@ prompt_pwd() {
     (( ++j ))
   done
 }
+
 # enable color support of ls and also add handy aliases
 if [[ "$OSTYPE" == darwin* ]]; then
   colorize="-G"
@@ -204,9 +205,9 @@ fi
 # make a transparent image opaque (color, src, dest)
 opaque() {
   local MAGICK
-  if which magick &> /dev/null; then
+  if type magick &> /dev/null; then
     MAGICK=magick
-  elif which convert &> /dev/null; then
+  elif type convert &> /dev/null; then
     MAGICK=convert
   else
     echo "Error: ImageMagick not found." >&2
@@ -218,9 +219,9 @@ opaque() {
 # make an image round (size, margin, src, dest)
 round() {
   local MAGICK
-  if which magick &> /dev/null; then
+  if type magick &> /dev/null; then
     MAGICK=magick
-  elif which convert &> /dev/null; then
+  elif type convert &> /dev/null; then
     MAGICK=convert
   else
     echo "Error: ImageMagick not found." >&2
@@ -230,30 +231,30 @@ round() {
 }
 
 if [ -n "$BASH_VERSION" ]; then
-    shopt -s histappend
-    shopt -s checkwinsize
-    HISTCONTROL=ignoreboth
-    HISTSIZE=10000
-    HISTFILESIZE=10000
-    alias applyrc='. ~/.bashrc'
+  shopt -s histappend
+  shopt -s checkwinsize
+  HISTCONTROL=ignoreboth
+  HISTSIZE=10000
+  HISTFILESIZE=10000
+  alias applyrc='. ~/.bashrc'
 
-    if [ -n "$SSH_CONNECTION" ]; then
-      PS1='\n\[$(get_status_color $?)\]$?\[\033[00m\] \[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]$(prompt_pwd)\[\033[00m\]\$ '
-    else
-      PS1='\n\[$(get_status_color $?)\]$?\[\033[00m\] \[\033[01;34m\]$(prompt_pwd)\[\033[00m\]\$ '
-    fi
+  if [ -n "$SSH_CONNECTION" ]; then
+    PS1='\n\[$(get_status_color $?)\]$?\[\033[00m\] \[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]$(prompt_pwd)\[\033[00m\]\$ '
+  else
+    PS1='\n\[$(get_status_color $?)\]$?\[\033[00m\] \[\033[01;34m\]$(prompt_pwd)\[\033[00m\]\$ '
+  fi
 elif [ -n "$ZSH_VERSION" ]; then
-    setopt HIST_IGNORE_DUPS
-    setopt HIST_IGNORE_SPACE
-    setopt APPEND_HISTORY
-    setopt PROMPT_SUBST
-    HISTSIZE=10000
-    SAVEHIST=10000
-    alias applyrc='. ~/.zshrc'
+  setopt HIST_IGNORE_DUPS
+  setopt HIST_IGNORE_SPACE
+  setopt APPEND_HISTORY
+  setopt PROMPT_SUBST
+  HISTSIZE=10000
+  SAVEHIST=10000
+  alias applyrc='. ~/.zshrc'
 
-    if [ -n "$SSH_CONNECTION" ]; then
-      PS1=$'\n%{$(get_status_color $?)%}%?%{\033[00m%} %{\033[01;32m%}%m%{\033[00m%}:%{\033[01;34m%}$(prompt_pwd)%{\033[00m%}%# '
-    else
-      PS1=$'\n%{$(get_status_color $?)%}%?%{\033[00m%} %{\033[01;34m%}$(prompt_pwd)%{\033[00m%}%# '
-    fi
+  if [ -n "$SSH_CONNECTION" ]; then
+    PS1=$'\n%{$(get_status_color $?)%}%?%{\033[00m%} %{\033[01;32m%}%m%{\033[00m%}:%{\033[01;34m%}$(prompt_pwd)%{\033[00m%}%# '
+  else
+    PS1=$'\n%{$(get_status_color $?)%}%?%{\033[00m%} %{\033[01;34m%}$(prompt_pwd)%{\033[00m%}%# '
+  fi
 fi
