@@ -4,9 +4,9 @@ My dotfiles for Linux, [Termux](https://termux.com/), [Brainux](https://brainux.
 
 ## Key features
 
-### Bash
+### Bourne Again Shell (bash) / Z Shell (zsh)
 
-Provided as `rc.sh`, which is meant to be sourced from `.bashrc` as follows:
+Provided as `rc.sh`, which is meant to be sourced from `.bashrc`/`.zshrc` as follows:
 
 ```sh
 if [ -f ~/rc.sh ]; then
