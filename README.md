@@ -15,7 +15,7 @@ fi
 ```
 
 - Aliases for Python, Git, package managers, and GCC
-- `editrc` and `applyrc` to edit and apply `rc.sh`/`.bashrc`
+- `editrc` and `applyrc` to edit and apply `rc.sh`/`.bashrc`/`.zshrc`
 - `pwdc` to copy the current directory path to the clipboard
 - `copy` to copy stdin to the clipboard
 - `hist` to search your command history
